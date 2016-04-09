@@ -38,8 +38,6 @@ import enums.Terrain;
  * Many thanks to the authors for publishing their code examples
  */
 
-//added comment
-
 public class SwarmServer {
 
     /**
