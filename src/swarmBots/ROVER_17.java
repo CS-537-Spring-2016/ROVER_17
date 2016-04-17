@@ -23,6 +23,8 @@ import com.google.gson.reflect.TypeToken;
  
 public class ROVER_17 {
 
+	int[][] terrainMap = new int[500][500];
+	int[][] scienceMap = new int[500][500];
     BufferedReader in;
     PrintWriter out;
     String rovername;
@@ -147,7 +149,8 @@ public class ROVER_17 {
     						// (scanMap may be old data by now)
     						if (scanMapTiles[centerIndex][centerIndex +1].getHasRover() 
     								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.ROCK
-    								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE) {
+    								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE
+									|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND) {
     							blocked = true;
     						} else {
     							// request to server to move
@@ -163,7 +166,8 @@ public class ROVER_17 {
     						
     						if (scanMapTiles[centerIndex][centerIndex -1].getHasRover() 
     								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.ROCK
-    								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE) {
+    								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE
+									|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND) {
     							blocked = true;
     						} else {
     							// request to server to move
