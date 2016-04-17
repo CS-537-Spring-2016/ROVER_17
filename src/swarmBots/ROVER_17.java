@@ -12,6 +12,7 @@ import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,6 +33,7 @@ public class ROVER_17 {
     int sleepTime;
     String SERVER_ADDRESS = "localhost";
     static final int PORT_ADDRESS = 9537;
+	int xCoord, yCoord;
 
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
@@ -107,6 +109,10 @@ public class ROVER_17 {
     					currentLoc = extractLOC(line);
     				}
     				System.out.println("ROVER_17 currentLoc at start: " + currentLoc);
+					Scanner inTest = new Scanner(currentLoc.toString()).useDelimiter("[^0-9]+");
+					xCoord = inTest.nextInt();
+					yCoord = inTest.nextInt();
+					System.out.println("x=" + xCoord + " y=" +yCoord);
     				
     				// after getting location set previous equal current to be able to check for stuckness and blocked later
     				previousLoc = currentLoc;
