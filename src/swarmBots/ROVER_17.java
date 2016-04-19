@@ -141,10 +141,7 @@ public class ROVER_17 {
     				// try moving east 5 block if blocked
     				if (blocked) {
     					for (int i = 0; i < 5; i++) {
-							if (scanMapTiles[centerIndex+1][centerIndex].getHasRover()
-									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.ROCK
-									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.NONE
-									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.SAND){
+							if (isBlocked(scanMapTiles[centerIndex+1][centerIndex])){
 								break;
 							}
     						out.println("MOVE E");
@@ -159,10 +156,7 @@ public class ROVER_17 {
     					if (goingSouth) {
     						// check scanMap to see if path is blocked to the south
     						// (scanMap may be old data by now)
-    						if (scanMapTiles[centerIndex][centerIndex +1].getHasRover() 
-    								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.ROCK
-    								|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.NONE
-									|| scanMapTiles[centerIndex][centerIndex +1].getTerrain() == Terrain.SAND) {
+    						if (isBlocked(scanMapTiles[centerIndex][centerIndex +1])) {
     							blocked = true;
     						} else {
     							// request to server to move
@@ -176,10 +170,7 @@ public class ROVER_17 {
     						//System.out.println("ROVER_17 scanMapTiles[2][1].getHasRover() " + scanMapTiles[2][1].getHasRover());
     						//System.out.println("ROVER_17 scanMapTiles[2][1].getTerrain() " + scanMapTiles[2][1].getTerrain().toString());
     						
-    						if (scanMapTiles[centerIndex][centerIndex -1].getHasRover() 
-    								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.ROCK
-    								|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.NONE
-									|| scanMapTiles[centerIndex][centerIndex -1].getTerrain() == Terrain.SAND) {
+    						if (isBlocked(scanMapTiles[centerIndex][centerIndex -1])) {
     							blocked = true;
     						} else {
     							// request to server to move
@@ -317,6 +308,16 @@ public class ROVER_17 {
 		while(in.ready()){
 			//System.out.println("ROVER_17 clearing readLine()");
 			String garbage = in.readLine();	
+		}
+	}
+
+	//Helper method to make cleaner run() cleaner
+	private boolean isBlocked(MapTile mt){
+		if (mt.getHasRover() || mt.getTerrain() == Terrain.ROCK ||
+				mt.getTerrain() == Terrain.NONE || mt.getTerrain() == Terrain.SAND){
+			return true;
+		} else {
+			return false;
 		}
 	}
 
