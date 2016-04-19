@@ -131,11 +131,22 @@ public class ROVER_17 {
     				//System.out.println("ROVER_17 sending SCAN request");
     				this.doScan();
     				scanMap.debugPrintMap();
+
+					// pull the MapTile array out of the ScanMap object
+					MapTile[][] scanMapTiles = scanMap.getScanMap();
+					int centerIndex = (scanMap.getEdgeSize() - 1)/2;
+					// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
  
     				// ***** MOVING *****
     				// try moving east 5 block if blocked
     				if (blocked) {
     					for (int i = 0; i < 5; i++) {
+							if (scanMapTiles[centerIndex+1][centerIndex].getHasRover()
+									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.ROCK
+									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.NONE
+									|| scanMapTiles[centerIndex+1][centerIndex].getTerrain() == Terrain.SAND){
+								break;
+							}
     						out.println("MOVE E");
     						//System.out.println("ROVER_17 request move E");
     						Thread.sleep(300);
@@ -144,11 +155,6 @@ public class ROVER_17 {
     					//reverses direction after being blocked
     					goingSouth = !goingSouth;
     				} else {
-
-    					// pull the MapTile array out of the ScanMap object
-    					MapTile[][] scanMapTiles = scanMap.getScanMap();
-    					int centerIndex = (scanMap.getEdgeSize() - 1)/2;
-    					// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
 
     					if (goingSouth) {
     						// check scanMap to see if path is blocked to the south
