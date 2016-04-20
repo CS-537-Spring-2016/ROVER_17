@@ -79,6 +79,8 @@ public class ROVER_17 {
     			boolean stuck = false; // just means it did not change locations between requests,
     									// could be velocity limit or obstruction etc.
     			boolean blocked = false;
+				String latMov = "W";
+				int latCount = 0;
 
     			String[] cardinals = new String[4];
     			cardinals[0] = "N";
@@ -95,8 +97,8 @@ public class ROVER_17 {
 
     				// currently the requirements allow sensor calls to be made with no
     				// simulated resource cost
-    				
-    				
+
+
     				// **** location call ****
     				out.println("LOC");
     				line = in.readLine();
@@ -113,19 +115,19 @@ public class ROVER_17 {
 					xCoord = inTest.nextInt();
 					yCoord = inTest.nextInt();
 					System.out.println("x=" + xCoord + " y=" +yCoord);
-    				
+
     				// after getting location set previous equal current to be able to check for stuckness and blocked later
     				previousLoc = currentLoc;
-    				
-    				
-    				
-    				// **** get equipment listing ****			
+
+
+
+    				// **** get equipment listing ****
     				ArrayList<String> equipment = new ArrayList<String>();
     				equipment = getEquipment();
     				//System.out.println("ROVER_17 equipment list results drive " + equipment.get(0));
     				System.out.println("ROVER_17 equipment list results " + equipment + "\n");
-    				
-    		
+
+
 
     				// ***** do a SCAN *****
     				//System.out.println("ROVER_17 sending SCAN request");
@@ -136,15 +138,18 @@ public class ROVER_17 {
 					MapTile[][] scanMapTiles = scanMap.getScanMap();
 					int centerIndex = (scanMap.getEdgeSize() - 1)/2;
 					// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
- 
+
     				// ***** MOVING *****
     				// try moving east 5 block if blocked
     				if (blocked) {
     					for (int i = 0; i < 5; i++) {
-							if (isBlocked(scanMapTiles[centerIndex+1][centerIndex])){
+							if ((isBlocked(scanMapTiles[centerIndex+1][centerIndex]) && latMov.equals("E")) ||
+									(isBlocked(scanMapTiles[centerIndex-1][centerIndex])) && latMov.equals("W")){
+								latCount++;
+								System.out.println(latCount);
 								break;
 							}
-    						out.println("MOVE E");
+    						out.println("MOVE " + latMov);
     						//System.out.println("ROVER_17 request move E");
     						Thread.sleep(300);
     					}
@@ -152,6 +157,16 @@ public class ROVER_17 {
     					//reverses direction after being blocked
     					goingSouth = !goingSouth;
     				} else {
+
+						//Check if end of map width, if so, lateral movement will go in opposite direction.
+						if (latCount >= 2) {
+							if (latMov.equals("E")) {
+								latMov = "W";
+							} else if (latMov.equals("W")) {
+								latMov = "E";
+							}
+							latCount = 0;
+						}
 
     					if (goingSouth) {
     						// check scanMap to see if path is blocked to the south
@@ -163,20 +178,20 @@ public class ROVER_17 {
     							out.println("MOVE S");
     							//System.out.println("ROVER_17 request move S");
     						}
-    						
+
     					} else {
     						// check scanMap to see if path is blocked to the north
     						// (scanMap may be old data by now)
     						//System.out.println("ROVER_17 scanMapTiles[2][1].getHasRover() " + scanMapTiles[2][1].getHasRover());
     						//System.out.println("ROVER_17 scanMapTiles[2][1].getTerrain() " + scanMapTiles[2][1].getTerrain().toString());
-    						
+
     						if (isBlocked(scanMapTiles[centerIndex][centerIndex -1])) {
     							blocked = true;
     						} else {
     							// request to server to move
     							out.println("MOVE N");
     							//System.out.println("ROVER_17 request move N");
-    						}					
+    						}
     					}
     				}
 
@@ -199,14 +214,15 @@ public class ROVER_17 {
 
     				//System.out.println("ROVER_17 stuck test " + stuck);
     				System.out.println("ROVER_17 blocked test " + blocked);
+					System.out.println(latCount + " " + latMov);
 
     				// TODO - logic to calculate where to move next
 
-    				
-    				
+
+
     				Thread.sleep(sleepTime);
-    				
-    				System.out.println("ROVER_17 ------------ bottom process control --------------"); 
+
+    				System.out.println("ROVER_17 ------------ bottom process control --------------");
     			}
     }
     
