@@ -243,15 +243,15 @@ public class ROVER_17 {
 				if (curX < 0 || curY < 0 || curX > 500 || curY > 500){
 					continue;
 				}
-				if (scanMapTiles[j][i].getTerrain() == Terrain.NONE) {
-					terrainMap[curX][curY] = -1;
-				} else if (scanMapTiles[j][i].getTerrain() == Terrain.ROCK) {
-					terrainMap[curX][curY] = 1;
-				} else if (scanMapTiles[j][i].getTerrain() == Terrain.SAND) {
-					terrainMap[curX][curY] = 2;
+				if (scanMapTiles[i][j].getTerrain() == Terrain.NONE) {
+					terrainMap[curY][curX] = -1;
+				} else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK) {
+					terrainMap[curY][curX] = 1;
+				} else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
+					terrainMap[curY][curX] = 2;
 				}
-				if (scanMapTiles[j][i].getScience() == Science.MINERAL) {
-					scienceMap[curX][curY] = 1;
+				if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
+					scienceMap[curY][curX] = 1;
 				}
 			}
 		}
