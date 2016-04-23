@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -334,6 +335,26 @@ public class ROVER_17 {
 		} else {
 			return false;
 		}
+	}
+
+	//get arraylist of possible moves from current position
+	private Collection<String> getPossibleMoves(ScanMap sm){
+		ArrayList<String> possibleMoves = new ArrayList();
+		MapTile[][] view = sm.getScanMap();
+		int center = (sm.getEdgeSize() - 1)/2;
+		if (!isBlocked(view[center+1][center])){
+			possibleMoves.add("E");
+		}
+		if (!isBlocked(view[center-1][center])){
+			possibleMoves.add("W");
+		}
+		if (!isBlocked(view[center][center-1])){
+			possibleMoves.add("N");
+		}
+		if (!isBlocked(view[center][center+1])){
+			possibleMoves.add("S");
+		}
+		return possibleMoves;
 	}
 
     public static void main(String args[]) throws Exception {
