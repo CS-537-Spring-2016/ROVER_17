@@ -4,6 +4,7 @@ import common.MapTile;
 import enums.Science;
 import enums.Terrain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Rover17Map {
@@ -60,6 +61,80 @@ public class Rover17Map {
                 }
             }
         }
+    }
+
+    //x and y are starting coordinates on map
+    public String makeDecision(int x, int y, ArrayList<String> possibleMoves){
+        String decision = "";
+        int discoveredNodes = 0;
+        int startingX, startingY;
+        for (String direction : possibleMoves){
+            int tempCounter = 0;
+            switch (direction){
+                case "W":
+                    startingX = x-6;
+                    if (startingX < 0){
+                        continue;
+                    } else {
+                        for(int i=0; i<11; i++){
+                            if (getTerrainMap()[y-5+i][startingX] == 0){
+                                tempCounter++;
+                            }
+                        }
+                        if (tempCounter > discoveredNodes){
+                            discoveredNodes = tempCounter;
+                            decision = "W";
+                        }
+                    }
+                case "E":
+                    startingX = x+6;
+                    if (startingX > 500){
+                        continue;
+                    } else {
+                        for(int i=0; i<11; i++){
+                            if (getTerrainMap()[y-5+i][startingX] == 0){
+                                tempCounter++;
+                            }
+                        }
+                        if (tempCounter > discoveredNodes){
+                            discoveredNodes = tempCounter;
+                            decision = "E";
+                        }
+                    }
+                case "N":
+                    startingY = y-6;
+                    if (startingY < 0){
+                        continue;
+                    } else {
+                        for(int i=0; i<11; i++){
+                            if (getTerrainMap()[startingY][x-5+i] == 0){
+                                tempCounter++;
+                            }
+                        }
+                        if (tempCounter > discoveredNodes){
+                            discoveredNodes = tempCounter;
+                            decision = "N";
+                        }
+                    }
+                case "S":
+                    startingY = y+6;
+                    if (startingY > 500){
+                        continue;
+                    } else {
+                        for(int i=0; i<11; i++){
+                            if (getTerrainMap()[startingY][x-5+i] == 0){
+                                tempCounter++;
+                            }
+                        }
+                        if (tempCounter > discoveredNodes){
+                            discoveredNodes = tempCounter;
+                            decision = "S";
+                        }
+                    }
+            }
+        }
+
+        return decision;
     }
 
     @Override
