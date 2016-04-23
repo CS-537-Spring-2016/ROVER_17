@@ -1,0 +1,4 @@
+# intellij
+.idea/*
+out/*
+build/*
