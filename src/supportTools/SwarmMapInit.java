@@ -130,7 +130,7 @@ public class SwarmMapInit {
 
 		// line 1 - map name
 		this.mapName = bufRead.readLine();
-		System.out.println(this.mapName);
+		System.out.println("MapInit: " + this.mapName);
 
 		// line 2 - map width and height
 		Coord mapSize = extractCoord(bufRead.readLine());
@@ -193,7 +193,7 @@ public class SwarmMapInit {
 	
 	public void printToDisplayTextFile() {	
 		String printMapString = makeInitString();		
-		System.out.println(printMapString);
+		System.out.println("MapInit: " + printMapString);
 	}
 
 	
@@ -285,10 +285,7 @@ public class SwarmMapInit {
 	public static Coord extractCoord(String inputString) {
 		if (inputString.lastIndexOf(" ") != -1) {
 			String xPosStr = inputString.substring(0, inputString.indexOf(" "));
-			System.out.println("extracted xPosStr " + xPosStr);
-
 			String yPosStr = inputString.substring(inputString.indexOf(" ") +1, inputString.lastIndexOf(" "));
-			System.out.println("extracted yPosStr " + yPosStr);
 			return new Coord(Integer.parseInt(xPosStr), Integer.parseInt(yPosStr));
 		}
 		return null;
