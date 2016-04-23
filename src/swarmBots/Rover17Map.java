@@ -49,9 +49,11 @@ public class Rover17Map {
                 if (scanMapTiles[i][j].getTerrain() == Terrain.NONE) {
                     terrainMap[curY][curX] = -1;
                 } else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK) {
-                    terrainMap[curY][curX] = 1;
-                } else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
                     terrainMap[curY][curX] = 2;
+                } else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
+                    terrainMap[curY][curX] = 3;
+                } else {
+                    terrainMap[curY][curX] = 1;
                 }
                 if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
                     scienceMap[curY][curX] = 1;
