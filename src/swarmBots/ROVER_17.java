@@ -24,7 +24,7 @@ import com.google.gson.reflect.TypeToken;
  
 public class ROVER_17 {
 
-	Rover17Map rm;
+	Rover17Map rm = new Rover17Map();
     BufferedReader in;
     PrintWriter out;
     String rovername;
@@ -90,8 +90,6 @@ public class ROVER_17 {
 		String currentDir = cardinals[0];
 		Coord currentLoc = null;
 		Coord previousLoc = null;
-
-		rm = new Rover17Map();
 
 		// start Rover controller process
 		while (true) {
@@ -359,6 +357,32 @@ public class ROVER_17 {
 			possibleMoves.add("S");
 		}
 		return possibleMoves;
+	}
+
+	private String makeDecision(ArrayList<String> possibleMoves){
+		String decision = "";
+		int discoveredNodes = 0;
+		int startingX, startingY;
+
+		for (String direction : possibleMoves){
+			if (direction.equals("W")){
+				startingX = minX-1;
+				if (startingX < 0 || startingX > 500){
+					discoveredNodes = 0;
+					continue;
+				} else {
+					
+				}
+			} else if (direction.equals("E")){
+
+			} else if (direction.equals("S")){
+
+			} else if (direction.equals("N")){
+
+			}
+		}
+
+		return decision;
 	}
 
     public static void main(String args[]) throws Exception {
