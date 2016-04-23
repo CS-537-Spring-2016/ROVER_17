@@ -81,13 +81,7 @@ public class ROVER_17 {
 		String latMov = "W";
 		int latCount = 0;
 
-		String[] cardinals = new String[4];
-		cardinals[0] = "N";
-		cardinals[1] = "E";
-		cardinals[2] = "S";
-		cardinals[3] = "W";
 
-		String currentDir = cardinals[0];
 		Coord currentLoc = null;
 		Coord previousLoc = null;
 
@@ -142,6 +136,7 @@ public class ROVER_17 {
 			// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
 
 			rm.updateMap(xCoord, yCoord, scanMapTiles);
+			//out.print("MOVE " + makeDecision(getPossibleMoves(scanMap)));
 
 			// ***** MOVING *****
 			// try moving east 5 block if blocked
@@ -340,7 +335,7 @@ public class ROVER_17 {
 	}
 
 	//get arraylist of possible moves from current position
-	private Collection<String> getPossibleMoves(ScanMap sm){
+	private ArrayList<String> getPossibleMoves(ScanMap sm){
 		ArrayList<String> possibleMoves = new ArrayList();
 		MapTile[][] view = sm.getScanMap();
 		int center = (sm.getEdgeSize() - 1)/2;
@@ -363,22 +358,68 @@ public class ROVER_17 {
 		String decision = "";
 		int discoveredNodes = 0;
 		int startingX, startingY;
-
 		for (String direction : possibleMoves){
+			int tempCounter = 0;
 			if (direction.equals("W")){
 				startingX = minX-1;
-				if (startingX < 0 || startingX > 500){
-					discoveredNodes = 0;
+				if (startingX < 0){
 					continue;
 				} else {
-					
+					for(int i=0; i<maxY; i++){
+						if (rm.getTerrainMap()[minY+i][startingX] == 0){
+							tempCounter++;
+						}
+					}
+					if (tempCounter > discoveredNodes){
+						discoveredNodes = tempCounter;
+						decision = "W";
+					}
 				}
 			} else if (direction.equals("E")){
-
+				startingX = minX+1;
+				if (startingX > 500){
+					continue;
+				} else {
+					for(int i=0; i<maxY; i++){
+						if (rm.getTerrainMap()[minY+i][startingX] == 0){
+							tempCounter++;
+						}
+					}
+					if (tempCounter > discoveredNodes){
+						discoveredNodes = tempCounter;
+						decision = "E";
+					}
+				}
 			} else if (direction.equals("S")){
-
+				startingY = minY+1;
+				if (startingY > 500){
+					continue;
+				} else {
+					for(int i=0; i<maxX; i++){
+						if (rm.getTerrainMap()[startingY][minX+i] == 0){
+							tempCounter++;
+						}
+					}
+					if (tempCounter > discoveredNodes){
+						discoveredNodes = tempCounter;
+						decision = "S";
+					}
+				}
 			} else if (direction.equals("N")){
-
+				startingY = minY-1;
+				if (startingY < 0){
+					continue;
+				} else {
+					for(int i=0; i<maxX; i++){
+						if (rm.getTerrainMap()[startingY][minX+i] == 0){
+							tempCounter++;
+						}
+					}
+					if (tempCounter > discoveredNodes){
+						discoveredNodes = tempCounter;
+						decision = "S";
+					}
+				}
 			}
 		}
 
