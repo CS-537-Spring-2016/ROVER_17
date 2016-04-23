@@ -11,8 +11,8 @@ public class Rover17Map {
     private int[][] scienceMap;
 
     public Rover17Map(){
-        terrainMap = new int[50][50];
-        scienceMap = new int[50][50];
+        terrainMap = new int[500][500];
+        scienceMap = new int[500][500];
     }
 
     public void setTerrainMap(int[][] tMap){

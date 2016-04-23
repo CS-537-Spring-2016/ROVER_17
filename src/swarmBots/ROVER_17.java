@@ -3,17 +3,14 @@ package swarmBots;
 import common.Coord;
 import common.MapTile;
 import common.ScanMap;
-import enums.Science;
 import enums.Terrain;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -26,8 +23,7 @@ import com.google.gson.reflect.TypeToken;
  
 public class ROVER_17 {
 
-	private int[][] terrainMap = new int[500][500];
-	private int[][] scienceMap = new int[500][500];
+	Rover17Map rm;
     BufferedReader in;
     PrintWriter out;
     String rovername;
@@ -94,6 +90,8 @@ public class ROVER_17 {
 		Coord currentLoc = null;
 		Coord previousLoc = null;
 
+		rm = new Rover17Map();
+
 		// start Rover controller process
 		while (true) {
 
@@ -140,7 +138,7 @@ public class ROVER_17 {
 			int centerIndex = (scanMap.getEdgeSize() - 1)/2;
 			// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
 
-			updateMap(xCoord, yCoord, scanMapTiles);
+			rm.updateMap(xCoord, yCoord, scanMapTiles);
 
 			// ***** MOVING *****
 			// try moving east 5 block if blocked
@@ -227,35 +225,6 @@ public class ROVER_17 {
 			System.out.println("ROVER_17 ------------ bottom process control --------------");
 		}
     }
-
-	// method to update int array map
-	public void updateMap(int x, int y, MapTile[][] scanMapTiles) throws IndexOutOfBoundsException{
-		//iterate through the rover's vision
-		int curX, curY;
-		for (int i=0;i<scanMapTiles.length;i++) {
-			for (int j=0;j<scanMapTiles.length;j++) {
-				//the actual coordinates we are updating on the main map
-				curX = x-5+j;
-				curY = y-5+i;
-
-				//Need to check if its out of the bounds of the map array
-				//TODO: improve this check
-				if (curX < 0 || curY < 0 || curX > 500 || curY > 500){
-					continue;
-				}
-				if (scanMapTiles[i][j].getTerrain() == Terrain.NONE) {
-					terrainMap[curY][curX] = -1;
-				} else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK) {
-					terrainMap[curY][curX] = 1;
-				} else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
-					terrainMap[curY][curX] = 2;
-				}
-				if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
-					scienceMap[curY][curX] = 1;
-				}
-			}
-		}
-	}
 
 	// this takes the LOC response string, parses out the x and x values and
 	// returns a Coord object
