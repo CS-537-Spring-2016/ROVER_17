@@ -209,7 +209,7 @@ public class ROVER_17 {
 
 			//System.out.println("ROVER_17 stuck test " + stuck);
 			System.out.println("ROVER_17 blocked test " + blocked);
-			System.out.println(getPossibleMoves(scanMap));
+			System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMap)));
 
 			// TODO - logic to calculate where to move next
 

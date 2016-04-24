@@ -71,7 +71,9 @@ public class Rover17Map {
         String decision = "nothing";
         int discoveredNodes = 0;
         int startingX = x-5;
+        int endingX = x+5;
         int startingY = y-5;
+        int endingY = y+5;
         int moves = 1;
         while (decision.equals("nothing")){
             for (String direction : possibleMoves) {
@@ -84,7 +86,7 @@ public class Rover17Map {
                             for (int i = 0; i < 11; i++) {
                                 if (startingY + i < 0 || startingY + i > mapHeight)
                                     continue;
-                                else if (getTerrainMap()[startingY + i][startingX] == 0) {
+                                else if (getTerrainMap()[startingY+i][startingX-moves] == 0) {
                                     tempCounter++;
                                 }
                             }
@@ -94,13 +96,13 @@ public class Rover17Map {
                             }
                         }
                     case "E":
-                        if (startingX+moves > mapWidth) {
+                        if (endingX+moves > mapWidth) {
                             continue;
                         } else {
                             for (int i = 0; i < 11; i++) {
                                 if (startingY + i < 0 || startingY + i > mapHeight)
                                     continue;
-                                else if (getTerrainMap()[startingY + i][startingX] == 0) {
+                                else if (getTerrainMap()[startingY+i][endingX+moves] == 0) {
                                     tempCounter++;
                                 }
                             }
@@ -116,7 +118,7 @@ public class Rover17Map {
                             for (int i = 0; i < 11; i++) {
                                 if (startingX + i < 0 || startingX + i > mapWidth)
                                     continue;
-                                else if (getTerrainMap()[startingY][startingX + i] == 0) {
+                                else if (getTerrainMap()[startingY-moves][startingX + i] == 0) {
                                     tempCounter++;
                                 }
                             }
@@ -132,7 +134,7 @@ public class Rover17Map {
                             for (int i = 0; i < 11; i++) {
                                 if (startingX + i < 0 || startingX + i > mapWidth)
                                     continue;
-                                else if (getTerrainMap()[startingY][startingX + i] == 0) {
+                                else if (getTerrainMap()[endingY+moves][startingX + i] == 0) {
                                     tempCounter++;
                                 }
                             }
