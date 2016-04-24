@@ -10,10 +10,13 @@ import java.util.Arrays;
 public class Rover17Map {
     private int[][] terrainMap;
     private int[][] scienceMap;
+    private int mapHeight = 50;
+    private int mapWidth = 50;
 
     public Rover17Map(){
-        terrainMap = new int[500][500];
-        scienceMap = new int[500][500];
+
+        terrainMap = new int[mapHeight][mapWidth];
+        scienceMap = new int[mapHeight][mapWidth];
     }
 
     public void setTerrainMap(int[][] tMap){
@@ -44,7 +47,7 @@ public class Rover17Map {
 
                 //Need to check if its out of the bounds of the map array
                 //TODO: improve this check
-                if (curX < 0 || curY < 0 || curX > 500 || curY > 500){
+                if (curX < 0 || curY < 0 || curX > mapWidth || curY > mapHeight){
                     continue;
                 }
                 if (scanMapTiles[i][j].getTerrain() == Terrain.NONE) {
@@ -65,73 +68,82 @@ public class Rover17Map {
 
     //x and y are starting coordinates on map
     public String makeDecision(int x, int y, ArrayList<String> possibleMoves){
-        String decision = "";
+        String decision = "nothing";
         int discoveredNodes = 0;
-        int startingX, startingY;
-        for (String direction : possibleMoves){
-            int tempCounter = 0;
-            switch (direction){
-                case "W":
-                    startingX = x-6;
-                    if (startingX < 0){
-                        continue;
-                    } else {
-                        for(int i=0; i<11; i++){
-                            if (getTerrainMap()[y-5+i][startingX] == 0){
-                                tempCounter++;
+        int startingX = x-5;
+        int startingY = y-5;
+        int moves = 1;
+        while (decision.equals("nothing")){
+            for (String direction : possibleMoves) {
+                int tempCounter = 0;
+                switch (direction) {
+                    case "W":
+                        if (startingX-moves < 0) {
+                            continue;
+                        } else {
+                            for (int i = 0; i < 11; i++) {
+                                if (startingY + i < 0 || startingY + i > mapHeight)
+                                    continue;
+                                else if (getTerrainMap()[startingY + i][startingX] == 0) {
+                                    tempCounter++;
+                                }
+                            }
+                            if (tempCounter > discoveredNodes) {
+                                discoveredNodes = tempCounter;
+                                decision = "W";
                             }
                         }
-                        if (tempCounter > discoveredNodes){
-                            discoveredNodes = tempCounter;
-                            decision = "W";
-                        }
-                    }
-                case "E":
-                    startingX = x+6;
-                    if (startingX > 500){
-                        continue;
-                    } else {
-                        for(int i=0; i<11; i++){
-                            if (getTerrainMap()[y-5+i][startingX] == 0){
-                                tempCounter++;
+                    case "E":
+                        if (startingX+moves > mapWidth) {
+                            continue;
+                        } else {
+                            for (int i = 0; i < 11; i++) {
+                                if (startingY + i < 0 || startingY + i > mapHeight)
+                                    continue;
+                                else if (getTerrainMap()[startingY + i][startingX] == 0) {
+                                    tempCounter++;
+                                }
+                            }
+                            if (tempCounter > discoveredNodes) {
+                                discoveredNodes = tempCounter;
+                                decision = "E";
                             }
                         }
-                        if (tempCounter > discoveredNodes){
-                            discoveredNodes = tempCounter;
-                            decision = "E";
-                        }
-                    }
-                case "N":
-                    startingY = y-6;
-                    if (startingY < 0){
-                        continue;
-                    } else {
-                        for(int i=0; i<11; i++){
-                            if (getTerrainMap()[startingY][x-5+i] == 0){
-                                tempCounter++;
+                    case "N":
+                        if (startingY-moves < 0) {
+                            continue;
+                        } else {
+                            for (int i = 0; i < 11; i++) {
+                                if (startingX + i < 0 || startingX + i > mapWidth)
+                                    continue;
+                                else if (getTerrainMap()[startingY][startingX + i] == 0) {
+                                    tempCounter++;
+                                }
+                            }
+                            if (tempCounter > discoveredNodes) {
+                                discoveredNodes = tempCounter;
+                                decision = "N";
                             }
                         }
-                        if (tempCounter > discoveredNodes){
-                            discoveredNodes = tempCounter;
-                            decision = "N";
-                        }
-                    }
-                case "S":
-                    startingY = y+6;
-                    if (startingY > 500){
-                        continue;
-                    } else {
-                        for(int i=0; i<11; i++){
-                            if (getTerrainMap()[startingY][x-5+i] == 0){
-                                tempCounter++;
+                    case "S":
+                        if (startingY+moves > mapHeight) {
+                            continue;
+                        } else {
+                            for (int i = 0; i < 11; i++) {
+                                if (startingX + i < 0 || startingX + i > mapWidth)
+                                    continue;
+                                else if (getTerrainMap()[startingY][startingX + i] == 0) {
+                                    tempCounter++;
+                                }
+                            }
+                            if (tempCounter > discoveredNodes) {
+                                discoveredNodes = tempCounter;
+                                decision = "S";
                             }
                         }
-                        if (tempCounter > discoveredNodes){
-                            discoveredNodes = tempCounter;
-                            decision = "S";
-                        }
-                    }
+                }
             }
+            moves++;
         }
 
         return decision;

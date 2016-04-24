@@ -32,7 +32,7 @@ public class ROVER_17 {
     int sleepTime;
     String SERVER_ADDRESS = "localhost";
     static final int PORT_ADDRESS = 9537;
-	private int xCoord, yCoord, minX, maxX, minY, maxY = 0;
+	private int xCoord, yCoord = 0;
 
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
@@ -107,10 +107,6 @@ public class ROVER_17 {
 			Scanner inTest = new Scanner(currentLoc.toString()).useDelimiter("[^0-9]+");
 			xCoord = inTest.nextInt();
 			yCoord = inTest.nextInt();
-			minX = xCoord - 5;
-			maxX = xCoord + 5;
-			minY = yCoord - 5;
-			maxY = yCoord + 5;
 
 			// after getting location set previous equal current to be able to check for stuckness and blocked later
 			previousLoc = currentLoc;
@@ -213,7 +209,7 @@ public class ROVER_17 {
 
 			//System.out.println("ROVER_17 stuck test " + stuck);
 			System.out.println("ROVER_17 blocked test " + blocked);
-			//System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMap)));
+			System.out.println(getPossibleMoves(scanMap));
 
 			// TODO - logic to calculate where to move next
 
