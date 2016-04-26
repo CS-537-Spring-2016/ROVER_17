@@ -132,7 +132,8 @@ public class ROVER_17 {
 			// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
 
 			rm.updateMap(xCoord, yCoord, scanMapTiles);
-			//out.println("MOVE " + rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
+			//String direction = rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles));
+			//out.println("MOVE " + direction);
 
 			// ***** MOVING *****
 			// try moving east 5 block if blocked
