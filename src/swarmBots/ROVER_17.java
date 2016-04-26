@@ -11,12 +11,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import swarmBots.Rover17Utilities.Rover17Map;
 
 /**
  * Created by Team_17 on 4/9/16.
@@ -132,7 +132,7 @@ public class ROVER_17 {
 			// tile S = y + 1; N = y - 1; E = x + 1; W = x - 1
 
 			rm.updateMap(xCoord, yCoord, scanMapTiles);
-			//out.print("MOVE " + makeDecision(xCoord, yCoord, getPossibleMoves(scanMap)));
+			//out.println("MOVE " + rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
 
 			// ***** MOVING *****
 			// try moving east 5 block if blocked
@@ -166,7 +166,7 @@ public class ROVER_17 {
 				if (goingSouth) {
 					// check scanMap to see if path is blocked to the south
 					// (scanMap may be old data by now)
-					if (isBlocked(scanMapTiles[centerIndex][centerIndex +1])) {
+					if (isBlocked(scanMapTiles[centerIndex][centerIndex+1])) {
 						blocked = true;
 					} else {
 						// request to server to move
@@ -180,7 +180,7 @@ public class ROVER_17 {
 					//System.out.println("ROVER_17 scanMapTiles[2][1].getHasRover() " + scanMapTiles[2][1].getHasRover());
 					//System.out.println("ROVER_17 scanMapTiles[2][1].getTerrain() " + scanMapTiles[2][1].getTerrain().toString());
 
-					if (isBlocked(scanMapTiles[centerIndex][centerIndex -1])) {
+					if (isBlocked(scanMapTiles[centerIndex][centerIndex-1])) {
 						blocked = true;
 					} else {
 						// request to server to move
@@ -209,7 +209,7 @@ public class ROVER_17 {
 
 			//System.out.println("ROVER_17 stuck test " + stuck);
 			System.out.println("ROVER_17 blocked test " + blocked);
-			System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMap)));
+			System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
 
 			// TODO - logic to calculate where to move next
 
@@ -332,20 +332,20 @@ public class ROVER_17 {
 	}
 
 	//get arraylist of possible moves from current position
-	private ArrayList<String> getPossibleMoves(ScanMap sm){
+	private ArrayList<String> getPossibleMoves(MapTile[][] view){
 		ArrayList<String> possibleMoves = new ArrayList();
-		MapTile[][] view = sm.getScanMap();
-		int center = (sm.getEdgeSize() - 1)/2;
-		if (!isBlocked(view[center+1][center])){
+
+		int center = (view.length - 1)/2;
+		if (!isBlocked(view[center][center+1])){
 			possibleMoves.add("E");
 		}
-		if (!isBlocked(view[center-1][center])){
+		if (!isBlocked(view[center][center-1])){
 			possibleMoves.add("W");
 		}
-		if (!isBlocked(view[center][center-1])){
+		if (!isBlocked(view[center-1][center])){
 			possibleMoves.add("N");
 		}
-		if (!isBlocked(view[center][center+1])){
+		if (!isBlocked(view[center+1][center])){
 			possibleMoves.add("S");
 		}
 		return possibleMoves;
