@@ -38,7 +38,7 @@ public class ROVER_17 {
         System.out.println("ROVER_17 constructed.");
         rovername = "ROVER_17";
         SERVER_ADDRESS = "localhost";
-        sleepTime = 300;
+        sleepTime = 250;
 
     }
 
@@ -196,6 +196,7 @@ public class ROVER_17 {
 			jsonEqListIn = "";
 		}
 		StringBuilder jsonEqList = new StringBuilder();
+		
 		//System.out.println("ROVER_17 incomming EQUIPMENT result - first readline: " + jsonEqListIn);
 		
 		if(jsonEqListIn.startsWith("EQUIPMENT")){
@@ -249,13 +250,13 @@ public class ROVER_17 {
 			clearReadLineBuffer();
 			return; // server response did not start with "SCAN"
 		}
-		//System.out.println("ROVER_17 finished scan while");
+		
 
 		String jsonScanMapString = jsonScanMap.toString();
 		// debug print json object to a file
 		//new MyWriter( jsonScanMapString, 0);  //gives a strange result - prints the \n instead of newline character in the file
 
-		//System.out.println("ROVER_17 convert from json back to ScanMap class");
+		
 		// convert from the json string back to a ScanMap object
 		scanMap = gson.fromJson(jsonScanMapString, ScanMap.class);		
 	}
