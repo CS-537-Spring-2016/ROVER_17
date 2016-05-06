@@ -56,8 +56,6 @@ public class ROVER_17 {
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
 		// Process all messages from server, wait until server requests Rover ID
 		// name
 		while (true) {
@@ -111,8 +109,8 @@ public class ROVER_17 {
 			// after getting location set previous equal current to be able to check for stuckness and blocked later
 			previousLoc = currentLoc;
 			
-			System.out.print("X-Coorinate is :"+xCoord);
-			System.out.print("Y-Coorinate is :"+yCoord);
+//			System.out.print("X-Coorinate is :"+xCoord);
+//			System.out.print("Y-Coorinate is :"+yCoord);
 			
 
 			// **** get equipment listing ****
@@ -169,12 +167,7 @@ public class ROVER_17 {
 			System.out.println("ROVER_17 ------------ bottom process control --------------");
 		}
     }
-    
-    public void aStarAlgo(){
-    	
-    	// Path finding algorithm //
-    	
-    }
+
 
 	// this takes the LOC response string, parses out the x and x values and
 	// returns a Coord object
@@ -205,7 +198,7 @@ public class ROVER_17 {
 		}
 		StringBuilder jsonEqList = new StringBuilder();
 		
-		System.out.println("ROVER_17 incomming EQUIPMENT result - first readline: " + jsonEqListIn);
+		//System.out.println("ROVER_17 incomming EQUIPMENT result - first readline: " + jsonEqListIn);
 		
 		if(jsonEqListIn.startsWith("EQUIPMENT")){
 			while (!(jsonEqListIn = in.readLine()).equals("EQUIPMENT_END")) {

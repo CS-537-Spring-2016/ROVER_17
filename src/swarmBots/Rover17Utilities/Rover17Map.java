@@ -155,18 +155,7 @@ public class Rover17Map {
         return decision;
     }
 
-    public ArrayList<String> aStarSearch(int x1, int y1, int x2, int y2){
-        ArrayList<String> listOfMoves = new ArrayList();
 
-
-        return listOfMoves;
-    }
-
-    private double getDistance(int x1, int y1, int x2, int y2){
-        double doubleX = Math.pow((double)x1 - (double)x2, 2);
-        double doubleY = Math.pow((double)y1 - (double)y2, 2);
-        return Math.sqrt(doubleX + doubleY);
-    }
 
     @Override
     public String toString(){
