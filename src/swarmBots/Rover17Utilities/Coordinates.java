@@ -33,7 +33,7 @@ public class Coordinates {
 
         Coordinates ip = (Coordinates) o;
 
-        return (appendCoordinate().equals(ip.appendCoordinate()));
+        return (getX() == ip.getX() && getY() == ip.getY());
 
     }
 
@@ -49,7 +49,6 @@ public class Coordinates {
 
     @Override
     public int hashCode(){
-        String append = getX() + "000" + getY();
-        return Integer.parseInt(append);
+        return Integer.parseInt(appendCoordinate());
     }
 }
