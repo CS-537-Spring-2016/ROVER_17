@@ -1,33 +1,37 @@
 package swarmBots.Rover17Utilities;
 
 
-public class Node<T> {
-    private int id;
-    private T data;
+public class Node {
+    private Coordinates coord;
+    private boolean passable = true;
 
-    public Node(int id) {
-        this.id = id;
-        this.data = null;
-    }
-    public Node(int id, T data) {
-        this.id = id;
-        this.data = data;
+    public Node(){
+        coord = new Coordinates(-1,-1);
+        passable = false;
     }
 
-    public int getId() {
-        return id;
+    public Node(Coordinates coord) {
+        this.coord = coord;
+    }
+    public Node(Coordinates coord, boolean passable) {
+        this.coord = coord;
+        this.passable = passable;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Coordinates getCoord() {
+        return coord;
     }
 
-    public T getData() {
-        return data;
+    public void setCoord(Coordinates coord) {
+        this.coord = coord;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public boolean getPassable() {
+        return passable;
+    }
+
+    public void setPassable(boolean passable) {
+        this.passable = passable;
     }
 
     @Override
@@ -37,19 +41,19 @@ public class Node<T> {
 
         Node node = (Node) o;
 
-        return getId() == node.getId();
+        return getCoord().equals(node.getCoord());
 
     }
 
     @Override
     public String toString() {
-        return "Node{" +
-                "id=" + id +
-                '}';
+        return "Node (" +
+                coord +
+                ')';
     }
 
     @Override
     public int hashCode() {
-        return getId();
+        return coord.hashCode();
     }
 }

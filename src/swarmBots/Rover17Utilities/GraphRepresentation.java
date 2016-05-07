@@ -7,13 +7,28 @@ import java.util.Arrays;
 
 public class GraphRepresentation {
     private List<Node> nodes;
+    private List<Node> sciences;
     private List<Edge> edges;
 
     public GraphRepresentation() {
         nodes = new ArrayList();
         edges = new ArrayList();
+        sciences = new ArrayList();
     }
 
+    public List<Node> getSciences(){
+        return sciences;
+    }
+
+    public boolean addSciences(Node x){
+        if(sciences.contains(x)){
+            return false;
+        }
+        else {
+            sciences.add(x);
+            return true;
+        }
+    }
 
 
     public boolean adjacent(Node x, Node y) {
