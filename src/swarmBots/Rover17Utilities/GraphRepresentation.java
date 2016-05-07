@@ -16,6 +16,14 @@ public class GraphRepresentation {
         sciences = new ArrayList();
     }
 
+    public List<Node> getNodes(){
+        return nodes;
+    }
+
+    public void setNodes(ArrayList<Node> nodes){
+        this.nodes = nodes;
+    }
+
     public List<Node> getSciences(){
         return sciences;
     }

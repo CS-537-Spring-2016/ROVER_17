@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Rover17Map {
+    private GraphRepresentation graph;
     private int[][] terrainMap;
     private int[][] scienceMap;
     private int mapHeight = 500;
     private int mapWidth = 500;
 
     public Rover17Map(){
-
+        graph = new GraphRepresentation();
         terrainMap = new int[mapHeight][mapWidth];
         scienceMap = new int[mapHeight][mapWidth];
     }
@@ -31,6 +32,13 @@ public class Rover17Map {
         return terrainMap;
     }
 
+    public void setGraph(GraphRepresentation graph){
+        this.graph = graph;
+    }
+    public GraphRepresentation getGraph(){
+        return graph;
+    }
+
     public int[][] getScienceMap(){
         return scienceMap;
     }
@@ -41,27 +49,48 @@ public class Rover17Map {
         int curX, curY;
         for (int i=0;i<scanMapTiles.length;i++) {
             for (int j=0;j<scanMapTiles.length;j++) {
+
                 //the actual coordinates we are updating on the main map
                 curX = x-5+i;
                 curY = y-5+j;
 
+                //Create Node
+                Node tempNode = new Node(new Coordinates(curX, curY));
+
+
                 //Need to check if its out of the bounds of the map array
                 //TODO: improve this check
                 if (curX < 0 || curY < 0 || curX > mapWidth || curY > mapHeight){
+                    tempNode.setPassable(false);
                     continue;
                 }
-                if (scanMapTiles[i][j].getTerrain() == Terrain.NONE) {
-                    terrainMap[curY][curX] = -1;
-                } else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK) {
-                    terrainMap[curY][curX] = 2;
-                } else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
-                    terrainMap[curY][curX] = 3;
-                } else {
-                    terrainMap[curY][curX] = 1;
+                if (scanMapTiles[i][j].getTerrain() == Terrain.NONE ||
+                        scanMapTiles[i][j].getTerrain() == Terrain.ROCK ||
+                        scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
+                    tempNode.setPassable(false);
+                } else{
+                    if (j != 0) {
+                        Coordinates temp = new Coordinates(j-1, i);
+                        if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
+                            Edge fromCurrent = new Edge(tempNode, new Node(temp), 1);
+                            Edge toCurrent = new Edge(new Node(temp), tempNode, 1);
+                            graph.addEdge(fromCurrent);
+                            graph.addEdge(toCurrent);
+                        }
+                    }
+//                    if (i != 0) {
+//                        Coordinates temp = new Coordinates(j, i-1);
+//                        if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
+//                            Node upNode = ipCoordinate.get(new IntPair(j, i-1));
+//                            graph.addEdge(new Edge(tempNode, upNode, 1));
+//                            graph.addEdge(new Edge(upNode, tempNode, 1));
+//                        }
+//                    }
                 }
                 if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
-                    scienceMap[curY][curX] = 1;
+                    graph.addSciences(tempNode);
                 }
+                graph.addNode(tempNode);
             }
         }
     }
