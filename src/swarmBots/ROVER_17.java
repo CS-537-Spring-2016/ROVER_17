@@ -155,8 +155,10 @@ public class ROVER_17 {
 			stuck = currentLoc.equals(previousLoc);
 
 			//System.out.println("ROVER_17 stuck test " + stuck);
-			System.out.println("ROVER_17 blocked test " + blocked);
-			System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
+			//System.out.println("ROVER_17 blocked test " + blocked);
+			//System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
+
+			System.out.println(rm);
 
 			// TODO - logic to calculate where to move next
 

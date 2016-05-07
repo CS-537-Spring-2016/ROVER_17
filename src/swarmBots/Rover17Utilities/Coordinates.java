@@ -39,7 +39,7 @@ public class Coordinates {
 
 
     public String toString(){
-        return "x = " + getX() + ", y = " +  getY();
+        return getX() + ", " +  getY();
     }
 
     public String appendCoordinate(){

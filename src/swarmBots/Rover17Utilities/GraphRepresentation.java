@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Arrays;
 
 public class GraphRepresentation {
-    private List<Node> nodes;
-    private List<Node> sciences;
-    private List<Edge> edges;
+    private ArrayList<Node> nodes;
+    private ArrayList<Node> sciences;
+    private ArrayList<Edge> edges;
 
     public GraphRepresentation() {
         nodes = new ArrayList();
@@ -16,7 +16,7 @@ public class GraphRepresentation {
         sciences = new ArrayList();
     }
 
-    public List<Node> getNodes(){
+    public ArrayList<Node> getNodes(){
         return nodes;
     }
 
@@ -24,7 +24,7 @@ public class GraphRepresentation {
         this.nodes = nodes;
     }
 
-    public List<Node> getSciences(){
+    public ArrayList<Node> getSciences(){
         return sciences;
     }
 
@@ -48,8 +48,8 @@ public class GraphRepresentation {
         return false;
     }
 
-    public List<Node> neighbors(Node x) {
-        List<Node> result = new ArrayList();
+    public ArrayList<Node> neighbors(Node x) {
+        ArrayList<Node> result = new ArrayList();
 
         if (!nodes.contains(x)) {
             return result;
@@ -124,6 +124,10 @@ public class GraphRepresentation {
 
     @Override
     public String toString() {
-        return "";
+        String nodestring = "";
+        for (Node n : nodes){
+            nodestring += n.toString() + ", ";
+        }
+        return nodestring;
     }
 }

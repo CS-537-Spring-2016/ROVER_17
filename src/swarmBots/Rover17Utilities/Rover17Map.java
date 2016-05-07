@@ -49,28 +49,31 @@ public class Rover17Map {
         int curX, curY;
         for (int i=0;i<scanMapTiles.length;i++) {
             for (int j=0;j<scanMapTiles.length;j++) {
-
                 //the actual coordinates we are updating on the main map
                 curX = x-5+i;
                 curY = y-5+j;
 
-                //Create Node
+                //Create Node with coordinates
                 Node tempNode = new Node(new Coordinates(curX, curY));
 
 
-                //Need to check if its out of the bounds of the map array
-                //TODO: improve this check
-                if (curX < 0 || curY < 0 || curX > mapWidth || curY > mapHeight){
-                    tempNode.setPassable(false);
-                    continue;
-                }
                 if (scanMapTiles[i][j].getTerrain() == Terrain.NONE ||
                         scanMapTiles[i][j].getTerrain() == Terrain.ROCK ||
                         scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
                     tempNode.setPassable(false);
+                    if (scanMapTiles[i][j].getTerrain() == Terrain.NONE){
+                        tempNode.setTerrain("NONE");
+                    } else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK){
+                        tempNode.setTerrain("ROCK");
+                    } else {
+                        tempNode.setTerrain("SAND");
+                    }
+                    graph.addNode(tempNode);
+                    System.out.println(graph);
                 } else{
-                    if (j != 0) {
-                        Coordinates temp = new Coordinates(j-1, i);
+                    graph.addNode(tempNode);
+                    if (i != 0 && curX != 0) {
+                        Coordinates temp = new Coordinates(curX-1, curY);
                         if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
                             Edge fromCurrent = new Edge(tempNode, new Node(temp), 1);
                             Edge toCurrent = new Edge(new Node(temp), tempNode, 1);
@@ -78,19 +81,17 @@ public class Rover17Map {
                             graph.addEdge(toCurrent);
                         }
                     }
-//                    if (i != 0) {
-//                        Coordinates temp = new Coordinates(j, i-1);
-//                        if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
-//                            Node upNode = ipCoordinate.get(new IntPair(j, i-1));
-//                            graph.addEdge(new Edge(tempNode, upNode, 1));
-//                            graph.addEdge(new Edge(upNode, tempNode, 1));
-//                        }
-//                    }
+                    if (j != 0 && curY != 0) {
+                        Coordinates temp = new Coordinates(curX, curY-1);
+                        if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
+                            graph.addEdge(new Edge(tempNode, new Node(temp), 1));
+                            graph.addEdge(new Edge(new Node(temp), tempNode, 1));
+                        }
+                    }
                 }
                 if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
                     graph.addSciences(tempNode);
                 }
-                graph.addNode(tempNode);
             }
         }
     }
@@ -188,7 +189,6 @@ public class Rover17Map {
 
     @Override
     public String toString(){
-        String mapsAsStrings = Arrays.deepToString(terrainMap) + "\n" + Arrays.deepToString(scienceMap);
-        return mapsAsStrings;
+        return graph.toString();
     }
 }
