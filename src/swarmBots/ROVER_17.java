@@ -4,6 +4,7 @@ import common.Coord;
 import common.MapTile;
 import common.ScanMap;
 import enums.Terrain;
+import common.Communication;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class ROVER_17 {
     String SERVER_ADDRESS = "localhost";
     static final int PORT_ADDRESS = 9537;
 	private int xCoord, yCoord = 0;
+	String url = "http://23.251.155.186:3000/api/global";
+	Communication com = new Communication(url);
 
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
@@ -148,14 +151,6 @@ public class ROVER_17 {
 				currentLoc = extractLOC(line);
 			}
 
-			//System.out.println("ROVER_17 currentLoc after recheck: " + currentLoc);
-			//System.out.println("ROVER_17 previousLoc: " + previousLoc);
-
-			// test for stuckness
-			stuck = currentLoc.equals(previousLoc);
-
-			//System.out.println("ROVER_17 stuck test " + stuck);
-			//System.out.println("ROVER_17 blocked test " + blocked);
 
 			//print to see nodes
 			//System.out.println(rm);
@@ -164,7 +159,7 @@ public class ROVER_17 {
 
 			// TODO - logic to calculate where to move next
 
-
+			com.postScanMapTiles(currentLoc, scanMapTiles);
 
 			Thread.sleep(sleepTime);
 

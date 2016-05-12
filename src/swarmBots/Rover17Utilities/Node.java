@@ -4,6 +4,7 @@ package swarmBots.Rover17Utilities;
 public class Node {
     private Coordinates coord;
     private String terrain;
+    private String science = "NONE";
     private boolean passable = true;
 
     public Node(){
@@ -20,6 +21,14 @@ public class Node {
         this.coord = coord;
         this.passable = passable;
         this.terrain = terrain;
+    }
+
+    public String getScience(){
+        return science;
+    }
+
+    public void setScience(String science){
+        this.science = science;
     }
 
     public String getTerrain(){

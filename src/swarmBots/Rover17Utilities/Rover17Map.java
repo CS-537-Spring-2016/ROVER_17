@@ -64,9 +64,17 @@ public class Rover17Map {
                         tempNode.setTerrain("SAND");
                         terrainMap[curX][curY] = 2;
                     }
+                    if(scanMapTiles[i][j].getScience() == Science.MINERAL){
+                        tempNode.setScience("MINERAL");
+                        graph.addSciences(tempNode);
+                    }
                     graph.addNode(tempNode);
                     System.out.println(graph);
                 } else{
+                    if(scanMapTiles[i][j].getScience() == Science.MINERAL){
+                        tempNode.setScience("MINERAL");
+                        graph.addSciences(tempNode);
+                    }
                     terrainMap[curX][curY] = 1;
                     graph.addNode(tempNode);
                     if (i != 0 && curX != 0) {
@@ -85,9 +93,6 @@ public class Rover17Map {
                             graph.addEdge(new Edge(new Node(temp), tempNode, 1));
                         }
                     }
-                }
-                if (scanMapTiles[i][j].getScience() == Science.MINERAL) {
-                    graph.addSciences(tempNode);
                 }
             }
         }
