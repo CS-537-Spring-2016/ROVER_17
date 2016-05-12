@@ -258,6 +258,10 @@ public class Rover17Map {
         }
 
         Node currentNode = dist;
+        //If there is no path, return null
+        if (!parents.containsKey(currentNode)){
+            return null;
+        }
 
         while (!currentNode.equals(source)) {
             Node parent = parents.get(currentNode);
