@@ -70,7 +70,8 @@ public class Node {
     public String toString() {
         return "Node (" +
                 coord +
-                ") Terrain:" + terrain;
+                "), Terrain:" + terrain +
+                ", Science:" + science;
     }
 
     @Override
