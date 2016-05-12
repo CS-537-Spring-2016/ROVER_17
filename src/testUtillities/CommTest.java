@@ -15,5 +15,4 @@ public class CommTest {
 		
 		CommServer.postData(obj);
 	}
-
 }

@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,15 +19,16 @@ public class CommServer {
 	public static boolean postData(CommObject commObject) throws Exception {
 		boolean isSuccess = false;
 
-		String urlServer = strLocal + ":" + strPort;
-		URL objServer = new URL("http://" + urlServer + "/scout");
+		String urlServer = strServer + ":" + strPort;
+		URL objServer = new URL("http://" + urlServer + "/globalMap");
 		System.out.println(objServer.toString());
-
-		HttpURLConnection conServer = (HttpURLConnection) objServer.openConnection();
+		boolean isRechable= InetAddress.getByName(strServer).isReachable(3000);
 
 		// Check if we have any kind of connection, else just return.
-		if (conServer != null) {
-			// add reuqest header
+		if (isRechable) {
+			HttpURLConnection conServer = (HttpURLConnection) objServer.openConnection();
+
+			// add request header
 			conServer.setRequestMethod("POST");
 			conServer.setRequestProperty("User-Agent", USER_AGENT);
 			conServer.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -44,13 +46,16 @@ public class CommServer {
 			os.write(outputInBytes);
 			os.close();
 
+			// Get response code.
 			int responseCode = conServer.getResponseCode();
 			System.out.println("Response Code : " + responseCode);
 
+			// Check if success.
 			if (responseCode == 200) {
 				isSuccess = true;
 			}
-			
+
+			// Disconnect the Connection.
 			conServer.disconnect();
 		}
 
