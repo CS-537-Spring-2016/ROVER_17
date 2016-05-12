@@ -9,8 +9,8 @@ import java.util.*;
 public class Rover17Map {
     private GraphRepresentation graph;
     private int[][] terrainMap;
-    private int mapHeight = 500;
-    private int mapWidth = 500;
+    private int mapHeight = 50;
+    private int mapWidth = 50;
 
     public Rover17Map(){
         graph = new GraphRepresentation();
@@ -56,27 +56,39 @@ public class Rover17Map {
                     tempNode.setPassable(false);
                     if (scanMapTiles[i][j].getTerrain() == Terrain.NONE){
                         tempNode.setTerrain("NONE");
-                        terrainMap[curX][curY] = -1;
+                        terrainMap[curY][curX] = -1;
                     } else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK){
                         tempNode.setTerrain("ROCK");
-                        terrainMap[curX][curY] = 2;
+                        terrainMap[curY][curX] = 2;
                     } else {
                         tempNode.setTerrain("SAND");
-                        terrainMap[curX][curY] = 2;
+                        terrainMap[curY][curX] = 2;
                     }
                     if(scanMapTiles[i][j].getScience() == Science.MINERAL){
                         tempNode.setScience("MINERAL");
                         graph.addSciences(tempNode);
                     }
-                    graph.addNode(tempNode);
-                    System.out.println(graph);
+                    //checks if science has been removed since last visit
+                    if(!graph.addNode(tempNode)){
+                        if (!graph.getNodes().get(graph.getNodes().indexOf(tempNode))
+                                .getScience().equals(tempNode.getScience())){
+                            graph.getNodes().get(graph.getNodes().indexOf(tempNode)).setScience(tempNode.getScience());
+                        }
+                    }
                 } else{
                     if(scanMapTiles[i][j].getScience() == Science.MINERAL){
                         tempNode.setScience("MINERAL");
                         graph.addSciences(tempNode);
                     }
-                    terrainMap[curX][curY] = 1;
-                    graph.addNode(tempNode);
+                    terrainMap[curY][curX] = 1;
+                    //checks if science has been removed since last visit
+                    if(!graph.addNode(tempNode)){
+                        if (!graph.getNodes().get(graph.getNodes().indexOf(tempNode))
+                                .getScience().equals(tempNode.getScience())){
+                            graph.getNodes().get(graph.getNodes().indexOf(tempNode)).setScience(tempNode.getScience());
+                        }
+                    }
+                    //adding edges
                     if (i != 0 && curX != 0) {
                         Coordinates temp = new Coordinates(curX-1, curY);
                         if (graph.getNodes().get(graph.getNodes().indexOf(new Node(temp))).getPassable()) {
@@ -192,6 +204,11 @@ public class Rover17Map {
     @Override
     public String toString(){
         return graph.toString();
+    }
+
+    public String arrayToString(){
+        String mapsAsStrings = Arrays.deepToString(terrainMap);
+        return mapsAsStrings;
     }
 
 

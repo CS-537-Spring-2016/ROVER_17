@@ -104,7 +104,6 @@ public class ROVER_17 {
 				// loc = line.substring(4);
 				currentLoc = extractLOC(line);
 			}
-			System.out.println("ROVER_17 currentLoc at start: " + currentLoc);
 			Scanner inTest = new Scanner(currentLoc.toString()).useDelimiter("[^0-9]+");
 			xCoord = inTest.nextInt();
 			yCoord = inTest.nextInt();
@@ -119,8 +118,6 @@ public class ROVER_17 {
 			// **** get equipment listing ****
 			ArrayList<String> equipment = new ArrayList<String>();
 			equipment = getEquipment();
-			//System.out.println("ROVER_17 equipment list results drive " + equipment.get(0));
-			System.out.println("ROVER_17 equipment list results " + equipment + "\n");
 
 
 
@@ -137,7 +134,6 @@ public class ROVER_17 {
 			rm.updateMap(xCoord, yCoord, scanMapTiles);
 			String direction = rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles));
 			out.println("MOVE " + direction);
-			System.out.println(scanMapTiles[centerIndex+1][centerIndex].getTerrain());
 
 
 			// another call for current location
@@ -156,6 +152,8 @@ public class ROVER_17 {
 			//System.out.println(rm);
 			//print to see edges
 			//System.out.println(rm.getGraph().edgesToString());
+			//print to see 2darray
+			//System.out.println(rm.arrayToString());
 
 			// TODO - logic to calculate where to move next
 
@@ -236,7 +234,7 @@ public class ROVER_17 {
 			jsonScanMapIn = "";
 		}
 		StringBuilder jsonScanMap = new StringBuilder();
-		System.out.println("ROVER_17 incomming SCAN result - first readline: " + jsonScanMapIn);
+		//System.out.println("ROVER_17 incomming SCAN result - first readline: " + jsonScanMapIn);
 		
 		if(jsonScanMapIn.startsWith("SCAN")){	
 			while (!(jsonScanMapIn = in.readLine()).equals("SCAN_END")) {
