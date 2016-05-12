@@ -130,4 +130,13 @@ public class GraphRepresentation {
         }
         return nodestring;
     }
+
+    //see if edges are added correctly
+    public String edgesToString(){
+        String edgeString = "";
+        for (Edge e : edges){
+            edgeString += e.toString() +"\n";
+        }
+        return edgeString;
+    }
 }

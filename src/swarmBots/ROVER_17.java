@@ -156,9 +156,11 @@ public class ROVER_17 {
 
 			//System.out.println("ROVER_17 stuck test " + stuck);
 			//System.out.println("ROVER_17 blocked test " + blocked);
-			//System.out.println(rm.makeDecision(xCoord, yCoord, getPossibleMoves(scanMapTiles)));
 
-			System.out.println(rm);
+			//print to see nodes
+			//System.out.println(rm);
+			//print to see edges
+			//System.out.println(rm.getGraph().edgesToString());
 
 			// TODO - logic to calculate where to move next
 
