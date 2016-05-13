@@ -9,8 +9,8 @@ import java.util.*;
 public class Rover17Map {
     private GraphRepresentation graph;
     private int[][] terrainMap;
-    private int mapHeight = 50;
-    private int mapWidth = 50;
+    private int mapHeight = 500;
+    private int mapWidth = 500;
 
     public Rover17Map(){
         graph = new GraphRepresentation();
@@ -46,13 +46,21 @@ public class Rover17Map {
                 //Create Node with coordinates
                 Node tempNode = new Node(new Coordinates(curX, curY));
 
+                //Detect science
+                if(scanMapTiles[i][j].getScience() == Science.MINERAL){
+                    tempNode.setScience("MINERAL");
+                    graph.addSciences(tempNode);
+                }
+
                 if (curX < 0 || curY < 0){
                     //no need to create nodes at negative spots
                     continue;
                 }
+                //checks if tile is blocked, does not create edges
                 else if (scanMapTiles[i][j].getTerrain() == Terrain.NONE ||
                         scanMapTiles[i][j].getTerrain() == Terrain.ROCK ||
-                        scanMapTiles[i][j].getTerrain() == Terrain.SAND) {
+                        scanMapTiles[i][j].getTerrain() == Terrain.SAND ||
+                        scanMapTiles[i][j].getHasRover()) {
                     tempNode.setPassable(false);
                     if (scanMapTiles[i][j].getTerrain() == Terrain.NONE){
                         tempNode.setTerrain("NONE");
@@ -60,13 +68,15 @@ public class Rover17Map {
                     } else if (scanMapTiles[i][j].getTerrain() == Terrain.ROCK){
                         tempNode.setTerrain("ROCK");
                         terrainMap[curY][curX] = 2;
-                    } else {
+                    } else if (scanMapTiles[i][j].getTerrain() == Terrain.SAND){
                         tempNode.setTerrain("SAND");
                         terrainMap[curY][curX] = 2;
-                    }
-                    if(scanMapTiles[i][j].getScience() == Science.MINERAL){
-                        tempNode.setScience("MINERAL");
-                        graph.addSciences(tempNode);
+                    } else{
+                        terrainMap[curY][curX] = 1;
+                        if (i != scanMapTiles.length/2 && j != scanMapTiles.length/2) {
+                            //if rover moves into scan, need to remove any edges through that tile
+                            graph.removeNode(tempNode);
+                        }
                     }
                     //checks if science has been removed since last visit
                     if(!graph.addNode(tempNode)){
@@ -75,11 +85,9 @@ public class Rover17Map {
                             graph.getNodes().get(graph.getNodes().indexOf(tempNode)).setScience(tempNode.getScience());
                         }
                     }
-                } else{
-                    if(scanMapTiles[i][j].getScience() == Science.MINERAL){
-                        tempNode.setScience("MINERAL");
-                        graph.addSciences(tempNode);
-                    }
+                }
+                //if tile is clear, create edges through it
+                else{
                     terrainMap[curY][curX] = 1;
                     //checks if science has been removed since last visit
                     if(!graph.addNode(tempNode)){
