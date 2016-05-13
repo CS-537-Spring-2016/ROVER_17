@@ -11,21 +11,19 @@ import com.google.gson.GsonBuilder;
 
 public class CommServer {
 
-	private static String strServer = "192.168.1.141";
-	private static String strLocal = "localhost";
-	private static String strPort = "3000";
+	private static String strServer = "23.251.155.186:3000";
 	private static String USER_AGENT = "Mozilla/5.0";
 
 	public static boolean postData(CommObject commObject) throws Exception {
 		boolean isSuccess = false;
 
-		String urlServer = strServer + ":" + strPort;
-		URL objServer = new URL("http://" + urlServer + "/globalMap");
+		String urlServer = strServer;
+		URL objServer = new URL("http://" + urlServer + "/api/global");
 		System.out.println(objServer.toString());
-		boolean isRechable= InetAddress.getByName(strServer).isReachable(3000);
+		//boolean isRechable= InetAddress.getByName(strServer).isReachable(3000);
 
 		// Check if we have any kind of connection, else just return.
-		if (isRechable) {
+		if (true) {
 			HttpURLConnection conServer = (HttpURLConnection) objServer.openConnection();
 
 			// add request header

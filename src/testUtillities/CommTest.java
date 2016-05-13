@@ -10,8 +10,8 @@ public class CommTest {
 		CommObject obj = new CommObject();
 		obj.setX(50);
 		obj.setY(50);
-		obj.setTerrain("sand");
-		obj.setScience("mineral");
+		obj.setTerrain("SAND");
+		obj.setScience("MINERAL");
 		
 		CommServer.postData(obj);
 	}
