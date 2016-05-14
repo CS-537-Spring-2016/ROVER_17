@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import swarmBots.Rover17Utilities.Coordinates;
+import swarmBots.Rover17Utilities.Edge;
 import swarmBots.Rover17Utilities.Node;
 import swarmBots.Rover17Utilities.Rover17Map;
 
@@ -40,6 +41,7 @@ public class ROVER_17 {
 	private String url = "http://23.251.155.186:3000/api/global";
 	private Communication com = new Communication(url);
 	private ArrayList<String> moves = new ArrayList();
+	private String direction;
 
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
@@ -83,6 +85,8 @@ public class ROVER_17 {
 			Coord currentLoc = null;
 			Coord previousLoc = null;
 
+			String prevMove = "";
+
 			// start Rover controller process
 			while (true) {
 
@@ -101,7 +105,6 @@ public class ROVER_17 {
 				Scanner inTest = new Scanner(currentLoc.toString()).useDelimiter("[^0-9]+");
 				xCoord = inTest.nextInt();
 				yCoord = inTest.nextInt();
-				Node current = new Node(new Coordinates(xCoord, yCoord));
 
 
 				// **** get equipment listing ****
@@ -118,8 +121,44 @@ public class ROVER_17 {
 				int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
+
+				if (scanMapTiles[centerIndex+5][centerIndex].getTerrain().equals(Terrain.NONE) ||
+						scanMapTiles[centerIndex][centerIndex+5].getTerrain().equals(Terrain.NONE)) {
+					switch (prevMove) {
+						case "S":
+							if (yCoord + 5 < rm.getMapHeight()) {
+								rm.setMapHeight(yCoord + 5);
+								System.out.println("Height = " + rm.getMapHeight());
+							}
+							break;
+						case "E":
+							if (xCoord + 5 < rm.getMapWidth()) {
+								rm.setMapWidth(xCoord + 5);
+								System.out.println("Width = " + rm.getMapWidth());
+							}
+							break;
+					}
+				}
+
+
 				if (counter < 1){
-					moves = rm.getMoves(rm.getTarget(xCoord, yCoord, scanMapTiles));
+					direction = rm.directionOfUndiscovered(xCoord, yCoord);
+					LinkedList<Edge> path = new LinkedList();
+					switch (direction){
+						case "NE":
+							path = rm.getTargetNE(xCoord, yCoord, scanMapTiles);
+							break;
+						case "NW":
+							path = rm.getTargetNW(xCoord, yCoord, scanMapTiles);
+							break;
+						case "SW":
+							path = rm.getTargetSW(xCoord, yCoord, scanMapTiles);
+							break;
+						case "SE":
+							path = rm.getTargetSE(xCoord, yCoord, scanMapTiles);
+							break;
+					}
+					moves = rm.getMoves(path);
 					counter = moves.size();
 					System.out.println(moves);
 				}
@@ -149,6 +188,7 @@ public class ROVER_17 {
 					}
 					Thread.sleep(300);
 					out.println("MOVE " + direction);
+					prevMove = direction;
 					counter--;
 				}
 
