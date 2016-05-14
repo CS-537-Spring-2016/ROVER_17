@@ -119,9 +119,9 @@ public class ROVER_17 {
 
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
 				if (counter < 1){
-					moves = rm.getMoves(rm.search(rm.getGraph(), current,
-							rm.getTargetNode(xCoord, yCoord, scanMapTiles)));
+					moves = rm.getMoves(rm.getTarget(xCoord, yCoord, scanMapTiles));
 					counter = moves.size();
+					System.out.println(moves);
 				}
 				if(moves.size() != 0) {
 					String direction = moves.get(moves.size() - counter);
@@ -143,6 +143,7 @@ public class ROVER_17 {
 								counter = 0;
 							break;
 					}
+					System.out.println(direction);
 					out.println("MOVE " + direction);
 					counter--;
 				}

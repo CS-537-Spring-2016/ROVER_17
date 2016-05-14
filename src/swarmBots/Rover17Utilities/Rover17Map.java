@@ -118,43 +118,46 @@ public class Rover17Map {
         }
     }
 
-    public Node getTargetNode(int x, int y, MapTile[][] sm){
+    public LinkedList<Edge> getTarget(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
-        Node target = current;
-
+        LinkedList<Edge> path = new LinkedList();
         //south wall
         for (int i=0; i<sm.length; i++) {
             Node temp = new Node(new Coordinates(x+5-i, y+5));
-            if (search(graph, current, temp) != null) {
+            path = search(graph, current, temp);
+            if (path != null) {
                 System.out.println("Target :" + temp);
-                return temp;
+                return path;
             }
         }
         //east wall
         for (int i=0; i<sm.length; i++){
             Node temp = new Node(new Coordinates(x+5, y+5-i));
-            if (search(graph, current, temp) != null) {
+            path = search(graph, current, temp);
+            if (path != null) {
                 System.out.println("Target :" + temp);
-                return temp;
+                return path;
             }
         }
         //west wall
         for (int i=0; i<sm.length; i++){
             Node temp = new Node(new Coordinates(x-5, y+5-i));
-            if (search(graph, current, temp) != null) {
+            path = search(graph, current, temp);
+            if (path != null) {
                 System.out.println("Target :" + temp);
-                return temp;
+                return path;
             }
         }
         //north wall
         for (int i=0; i<sm.length; i++){
             Node temp = new Node(new Coordinates(x+5-i, y-5));
-            if (search(graph, current, temp) != null) {
+            path = search(graph, current, temp);
+            if (path != null) {
                 System.out.println("Target :" + temp);
-                return temp;
+                return path;
             }
         }
-        return target;
+        return path;
     }
 
 
@@ -264,6 +267,9 @@ public class Rover17Map {
 
     public ArrayList<String> getMoves(LinkedList<Edge> edges){
         ArrayList<String> moves = new ArrayList();
+        if (edges == null){
+            return moves;
+        }
         for (int i = 0; i<edges.size(); i++) {
             Node from = edges.get(i).getFrom();
             Node to = edges.get(i).getTo();
