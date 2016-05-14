@@ -118,13 +118,31 @@ public class ROVER_17 {
 				int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
-				if (counter == 0){
+				if (counter < 1){
 					moves = rm.getMoves(rm.search(rm.getGraph(), current,
 							rm.getTargetNode(xCoord, yCoord, scanMapTiles)));
 					counter = moves.size();
 				}
 				if(moves.size() != 0) {
 					String direction = moves.get(moves.size() - counter);
+					switch (direction){
+						case "W":
+							if (isBlocked(scanMapTiles[centerIndex-1][centerIndex]))
+								counter = 0;
+							break;
+						case "E":
+							if (isBlocked(scanMapTiles[centerIndex+1][centerIndex]))
+								counter = 0;
+							break;
+						case "S":
+							if (isBlocked(scanMapTiles[centerIndex][centerIndex+1]))
+								counter = 0;
+							break;
+						case "N":
+							if (isBlocked(scanMapTiles[centerIndex][centerIndex-1]))
+								counter = 0;
+							break;
+					}
 					out.println("MOVE " + direction);
 					counter--;
 				}
@@ -148,8 +166,6 @@ public class ROVER_17 {
 				//System.out.println(rm.getGraph().edgesToString());
 				//print to see 2darray
 				//System.out.println(rm.arrayToString());
-
-				// TODO - logic to calculate where to move next
 
 				com.postScanMapTiles(currentLoc, scanMapTiles);
 
