@@ -830,7 +830,7 @@ public class SwarmServer {
 			// check for Green Corp - return int 2
 		} else if(roverNumber.equals("10") || roverNumber.equals("11") || roverNumber.equals("12") 
 				|| roverNumber.equals("13") || roverNumber.equals("14") || roverNumber.equals("15") 
-				|| roverNumber.equals("16") || roverNumber.equals("17") || roverNumber.equals("18")){
+				|| roverNumber.equals("16") || roverNumber.equals("17") || roverNumber.equals("18")|| roverNumber.equals("19")){
 			tnum = 2;
 		} 
 		return tnum;

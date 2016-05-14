@@ -172,7 +172,6 @@ public class Rover17Map {
         return mapsAsStrings;
     }
 
-
     /*
     ASTAR MOVED HERE
      */
