@@ -306,25 +306,7 @@ public class ROVER_17 {
 		}
 	}
 
-	//get arraylist of possible moves from current position
-	private ArrayList<String> getPossibleMoves(MapTile[][] view){
-		ArrayList<String> possibleMoves = new ArrayList();
-
-		int center = (view.length - 1)/2;
-		if (!isBlocked(view[center+1][center])){
-			possibleMoves.add("E");
-		}
-		if (!isBlocked(view[center-1][center])){
-			possibleMoves.add("W");
-		}
-		if (!isBlocked(view[center][center-1])){
-			possibleMoves.add("N");
-		}
-		if (!isBlocked(view[center][center+1])){
-			possibleMoves.add("S");
-		}
-		return possibleMoves;
-	}
+	
 
     public static void main(String args[]) throws Exception {
         ROVER_17 client;
