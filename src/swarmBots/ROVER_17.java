@@ -147,7 +147,6 @@ public class ROVER_17 {
 							}
 							break;
 					}
-					System.out.println(direction);
 					Thread.sleep(300);
 					out.println("MOVE " + direction);
 					counter--;
@@ -306,7 +305,7 @@ public class ROVER_17 {
 		}
 	}
 
-	
+
 
     public static void main(String args[]) throws Exception {
         ROVER_17 client;
