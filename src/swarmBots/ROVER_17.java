@@ -127,23 +127,28 @@ public class ROVER_17 {
 					String direction = moves.get(moves.size() - counter);
 					switch (direction){
 						case "W":
-							if (isBlocked(scanMapTiles[centerIndex-1][centerIndex]))
+							if (isBlocked(scanMapTiles[centerIndex-1][centerIndex])) {
 								counter = 0;
+							}
 							break;
 						case "E":
-							if (isBlocked(scanMapTiles[centerIndex+1][centerIndex]))
+							if (isBlocked(scanMapTiles[centerIndex+1][centerIndex])) {
 								counter = 0;
+							}
 							break;
 						case "S":
-							if (isBlocked(scanMapTiles[centerIndex][centerIndex+1]))
+							if (isBlocked(scanMapTiles[centerIndex][centerIndex+1])){
 								counter = 0;
+							}
 							break;
 						case "N":
-							if (isBlocked(scanMapTiles[centerIndex][centerIndex-1]))
+							if (isBlocked(scanMapTiles[centerIndex][centerIndex-1])){
 								counter = 0;
+							}
 							break;
 					}
 					System.out.println(direction);
+					Thread.sleep(300);
 					out.println("MOVE " + direction);
 					counter--;
 				}
