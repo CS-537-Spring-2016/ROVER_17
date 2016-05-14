@@ -118,6 +118,7 @@ public class Rover17Map {
         }
     }
 
+    //method to get the next path
     public LinkedList<Edge> getTarget(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
