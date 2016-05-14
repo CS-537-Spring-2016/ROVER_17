@@ -60,7 +60,8 @@ public class Rover17Map {
                 else if (scanMapTiles[i][j].getTerrain() == Terrain.NONE ||
                         scanMapTiles[i][j].getTerrain() == Terrain.ROCK ||
                         scanMapTiles[i][j].getTerrain() == Terrain.SAND ||
-                        scanMapTiles[i][j].getHasRover()) {
+                        (scanMapTiles[i][j].getHasRover()
+                                && i != scanMapTiles.length/2 && j != scanMapTiles.length/2)) {
                     tempNode.setPassable(false);
                     if (scanMapTiles[i][j].getTerrain() == Terrain.NONE){
                         tempNode.setTerrain("NONE");
@@ -73,10 +74,9 @@ public class Rover17Map {
                         terrainMap[curY][curX] = 2;
                     } else{
                         terrainMap[curY][curX] = 1;
-                        if (i != scanMapTiles.length/2 && j != scanMapTiles.length/2) {
-                            //if rover moves into scan, need to remove any edges through that tile
-                            graph.removeNode(tempNode);
-                        }
+                        //if rover moves into scan, need to remove any edges through that tile
+                        graph.removeNode(tempNode);
+
                     }
                     //checks if science has been removed since last visit
                     if(!graph.addNode(tempNode)){
@@ -118,93 +118,43 @@ public class Rover17Map {
         }
     }
 
-    //x and y are starting coordinates on map
-    public String makeDecision(int x, int y, ArrayList<String> possibleMoves){
-        String decision = "nothing";
-        int discoveredNodes = 0;
-        int startingX = x-5;
-        int endingX = x+5;
-        int startingY = y-5;
-        int endingY = y+5;
-        int moves = 1;
-        while (decision.equals("nothing")){
-            for (String direction : possibleMoves) {
-                int tempCounter = 0;
-                switch (direction) {
-                    case "S":
-                        if (startingY+moves > mapHeight) {
-                            continue;
-                        } else {
-                            for (int i = 0; i < 11; i++) {
-                                if (startingX + i < 0 || startingX + i > mapWidth)
-                                    continue;
-                                else if (getTerrainMap()[endingY+moves][startingX + i] == 0) {
-                                    tempCounter++;
-                                }
-                            }
-                            if (tempCounter > discoveredNodes) {
-                                discoveredNodes = tempCounter;
-                                decision = "S";
-                            }
-                        }
-                        break;
-                    case "W":
-                        if (startingX-moves < 0) {
-                            continue;
-                        } else {
-                            for (int i = 0; i < 11; i++) {
-                                if (startingY + i < 0 || startingY + i > mapHeight)
-                                    continue;
-                                else if (getTerrainMap()[startingY+i][startingX-moves] == 0) {
-                                    tempCounter++;
-                                }
-                            }
-                            if (tempCounter > discoveredNodes) {
-                                discoveredNodes = tempCounter;
-                                decision = "W";
-                            }
-                        }
-                        break;
-                    case "E":
-                        if (endingX+moves > mapWidth) {
-                            continue;
-                        } else {
-                            for (int i = 0; i < 11; i++) {
-                                if (startingY + i < 0 || startingY + i > mapHeight)
-                                    continue;
-                                else if (getTerrainMap()[startingY+i][endingX+moves] == 0) {
-                                    tempCounter++;
-                                }
-                            }
-                            if (tempCounter > discoveredNodes) {
-                                discoveredNodes = tempCounter;
-                                decision = "E";
-                            }
-                        }
-                        break;
-                    case "N":
-                        if (startingY-moves < 0) {
-                            continue;
-                        } else {
-                            for (int i = 0; i < 11; i++) {
-                                if (startingX + i < 0 || startingX + i > mapWidth)
-                                    continue;
-                                else if (getTerrainMap()[startingY-moves][startingX + i] == 0) {
-                                    tempCounter++;
-                                }
-                            }
-                            if (tempCounter > discoveredNodes) {
-                                discoveredNodes = tempCounter;
-                                decision = "N";
-                            }
-                        }
-                        break;
-                }
-            }
-            moves++;
-        }
+    public Node getTargetNode(int x, int y, MapTile[][] sm){
+        Node current = new Node(new Coordinates(x, y));
+        Node target = current;
 
-        return decision;
+        //south wall
+        for (int i=0; i<sm.length; i++) {
+            Node temp = new Node(new Coordinates(x+5-i, y+5));
+            if (search(graph, current, temp) != null) {
+                System.out.println("Target :" + temp);
+                return temp;
+            }
+        }
+        //east wall
+        for (int i=0; i<sm.length; i++){
+            Node temp = new Node(new Coordinates(x+5, y+5-i));
+            if (search(graph, current, temp) != null) {
+                System.out.println("Target :" + temp);
+                return temp;
+            }
+        }
+        //west wall
+        for (int i=0; i<sm.length; i++){
+            Node temp = new Node(new Coordinates(x-5, y+5-i));
+            if (search(graph, current, temp) != null) {
+                System.out.println("Target :" + temp);
+                return temp;
+            }
+        }
+        //north wall
+        for (int i=0; i<sm.length; i++){
+            Node temp = new Node(new Coordinates(x+5-i, y-5));
+            if (search(graph, current, temp) != null) {
+                System.out.println("Target :" + temp);
+                return temp;
+            }
+        }
+        return target;
     }
 
 
