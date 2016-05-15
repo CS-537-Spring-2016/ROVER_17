@@ -134,7 +134,7 @@ public class Rover17Map {
         }
     }
 
-    //method to get the next path
+    //method to get the next path if direction is North East
     public LinkedList<Edge> getTargetNE(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
@@ -149,7 +149,7 @@ public class Rover17Map {
         }
         //east wall
         for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5, y+5-i));
+            Node temp = new Node(new Coordinates(x+5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -158,7 +158,7 @@ public class Rover17Map {
         }
         //west wall
         for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x-5, y+5-i));
+            Node temp = new Node(new Coordinates(x-5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -176,13 +176,13 @@ public class Rover17Map {
         }
         return path;
     }
-    //method to get the next path
+    //method to get the next path if direction is South West
     public LinkedList<Edge> getTargetSW(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //south wall
         for (int i=0; i<sm.length; i++) {
-            Node temp = new Node(new Coordinates(x+5-i, y+5));
+            Node temp = new Node(new Coordinates(x-5+i, y+5));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -218,13 +218,13 @@ public class Rover17Map {
         }
         return path;
     }
-    //method to get the next path
+    //method to get the next path if direction is North West
     public LinkedList<Edge> getTargetNW(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //north wall
         for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5-i, y-5));
+            Node temp = new Node(new Coordinates(x-5+i, y-5));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -233,7 +233,7 @@ public class Rover17Map {
         }
         //west wall
         for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x-5, y+5-i));
+            Node temp = new Node(new Coordinates(x-5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -242,7 +242,7 @@ public class Rover17Map {
         }
         //east wall
         for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5, y+5-i));
+            Node temp = new Node(new Coordinates(x+5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
                 System.out.println("Target :" + temp);
@@ -260,7 +260,7 @@ public class Rover17Map {
         }
         return path;
     }
-    //method to get the next path
+    //method to get the next path if direction is South East
     public LinkedList<Edge> getTargetSE(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
