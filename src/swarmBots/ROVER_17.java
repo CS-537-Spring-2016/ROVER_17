@@ -122,27 +122,9 @@ public class ROVER_17 {
 
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
 
-				if (scanMapTiles[centerIndex+5][centerIndex].getTerrain().equals(Terrain.NONE) ||
-						scanMapTiles[centerIndex][centerIndex+5].getTerrain().equals(Terrain.NONE)) {
-					switch (prevMove) {
-						case "S":
-							if (yCoord + 5 < rm.getMapHeight()) {
-								rm.setMapHeight(yCoord + 5);
-								System.out.println("Height = " + rm.getMapHeight());
-							}
-							break;
-						case "E":
-							if (xCoord + 5 < rm.getMapWidth()) {
-								rm.setMapWidth(xCoord + 5);
-								System.out.println("Width = " + rm.getMapWidth());
-							}
-							break;
-					}
-				}
-
-
 				if (counter < 1){
 					direction = rm.directionOfUndiscovered(xCoord, yCoord);
+					System.out.println("Direction will be: " + direction);
 					LinkedList<Edge> path = new LinkedList();
 					switch (direction){
 						case "NE":
