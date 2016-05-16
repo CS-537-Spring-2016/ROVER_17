@@ -10,10 +10,11 @@ public class CountRepeats {
 		this.countList = new LinkedList<Coordinates>();
 	}
 
-	public void isBackward(Coordinates t) {
-		Coordinates tmpCoord;
-		tmpCoord = countList.peek();
-		if (!tmpCoord.equals(t)) {
+	public boolean isRepeating(Coordinates t) {
+		boolean repeating = false;
+		//peek the top of the stack and compare it with the new tile
+		//if it is not equal correct move
+		if (!t.equals(countList.peek())) {
 			countList.add(t);
 			if (backwardCount > 0)
 				backwardCount--;
@@ -22,5 +23,8 @@ public class CountRepeats {
 			countList.pop();
 			backwardCount++;
 		}
+		if (backwardCount >= 20)
+			repeating = true;
+		return repeating;
 	}
 }
