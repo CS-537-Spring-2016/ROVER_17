@@ -1,23 +1,26 @@
 package swarmBots.Rover17Utilities;
 
+import java.util.LinkedList;
+
 public class CountRepeats {
-	
-	public void setTile(){
-		
+	private LinkedList<Coordinates> countList;
+	private int backwardCount;
+
+	public CountRepeats() {
+		this.countList = new LinkedList<Coordinates>();
 	}
 
-	public void isRedundat(){
-		
-	}
-}
-
-class Tile {
-	Tile tile;
-	String xCord;
-	String yCord;
-	
-	public Tile(String x, String y){
-		this.xCord = x;
-		this.yCord = y;		
+	public void isBackward(Coordinates t) {
+		Coordinates tmpCoord;
+		tmpCoord = countList.peek();
+		if (!tmpCoord.equals(t)) {
+			countList.add(t);
+			if (backwardCount > 0)
+				backwardCount--;
+		} else {
+			System.out.println("duplicate move");
+			countList.pop();
+			backwardCount++;
+		}
 	}
 }
