@@ -40,6 +40,7 @@ public enum RoverName {
 	ROVER_00 ("WHEELS", "RADIATION_SENSOR", "RADAR_SENSOR"),
 	ROVER_98 ("WALKER", "DRILL", "SPECTRAL_SENSOR"),
 	ROVER_99 ("TREADS", "SPECTRAL_SENSOR", "CHEMICAL_SENSOR");
+
 	
     private final List<String> members;
     private RoverName(String... members){
