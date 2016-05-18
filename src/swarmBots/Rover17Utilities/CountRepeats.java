@@ -10,7 +10,6 @@ public class CountRepeats {
 	private int realCounter;
 	
 	public CountRepeats() {
-		// this.countList = new LinkedList<Coordinates>();
 		this.countList = new ArrayList<Coordinates>();
 	}
 	/*
