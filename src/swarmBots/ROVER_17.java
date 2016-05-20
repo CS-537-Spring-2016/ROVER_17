@@ -187,12 +187,7 @@ public class ROVER_17 {
 				}
 
 
-				//print to see nodes
-				//System.out.println(rm);
-				//print to see edges
-				//System.out.println(rm.getGraph().edgesToString());
-				//print to see 2darray
-				//System.out.println(rm.arrayToString());
+				
 
 				//com.postScanMapTiles(currentLoc, scanMapTiles);
 
