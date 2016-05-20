@@ -194,7 +194,7 @@ public class ROVER_17 {
 				//print to see 2darray
 				//System.out.println(rm.arrayToString());
 
-				com.postScanMapTiles(currentLoc, scanMapTiles);
+				//com.postScanMapTiles(currentLoc, scanMapTiles);
 
 				Thread.sleep(sleepTime);
 
