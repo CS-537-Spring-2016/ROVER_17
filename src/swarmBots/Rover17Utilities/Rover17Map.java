@@ -139,7 +139,7 @@ public class Rover17Map {
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //north wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5-i, y-5));
             path = search(graph, current, temp);
             if (path != null) {
@@ -148,7 +148,7 @@ public class Rover17Map {
             }
         }
         //east wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
@@ -181,7 +181,7 @@ public class Rover17Map {
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //south wall
-        for (int i=0; i<sm.length/2; i++) {
+        for (int i=0; i<(sm.length/2)+1; i++) {
             Node temp = new Node(new Coordinates(x-5+i, y+5));
             path = search(graph, current, temp);
             if (path != null) {
@@ -190,7 +190,7 @@ public class Rover17Map {
             }
         }
         //west wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5, y+5-i));
             path = search(graph, current, temp);
             if (path != null) {
@@ -223,7 +223,7 @@ public class Rover17Map {
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //north wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5+i, y-5));
             path = search(graph, current, temp);
             if (path != null) {
@@ -232,7 +232,7 @@ public class Rover17Map {
             }
         }
         //west wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5, y-5+i));
             path = search(graph, current, temp);
             if (path != null) {
@@ -265,7 +265,7 @@ public class Rover17Map {
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
         //south wall
-        for (int i=0; i<sm.length/2; i++) {
+        for (int i=0; i<(sm.length/2)+1; i++) {
             Node temp = new Node(new Coordinates(x+5-i, y+5));
             path = search(graph, current, temp);
             if (path != null) {
@@ -274,7 +274,7 @@ public class Rover17Map {
             }
         }
         //east wall
-        for (int i=0; i<sm.length/2; i++){
+        for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5, y+5-i));
             path = search(graph, current, temp);
             if (path != null) {
