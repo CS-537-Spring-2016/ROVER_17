@@ -38,8 +38,9 @@ public class ROVER_17 {
     String SERVER_ADDRESS = "localhost";
     static final int PORT_ADDRESS = 9537;
 	private int xCoord=0, yCoord=0, counter=0;
-	private String url = "http://23.251.155.186:3000/api/global";
-	private Communication com = new Communication(url);
+	private String url = "http://23.251.155.186:3000/api";
+	private String corp_secret = "0FSj7Pn23t";
+	private Communication com;
 	private ArrayList<String> moves = new ArrayList();
 	private String direction;
 
@@ -56,6 +57,7 @@ public class ROVER_17 {
         rovername = "ROVER_17";
         SERVER_ADDRESS = servername;
         sleepTime = 200;
+		com = new Communication(url, rovername, corp_secret);
     }
 
     public void run() throws IOException, InterruptedException{
@@ -192,7 +194,7 @@ public class ROVER_17 {
 				//System.out.println(rm.getGraph().edgesToString());
 				//print to see 2darray
 				//System.out.println(rm.arrayToString());
-				
+
 				com.postScanMapTiles(currentLoc, scanMapTiles);
 
 				Thread.sleep(sleepTime);
