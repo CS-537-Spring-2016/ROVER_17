@@ -49,7 +49,7 @@ public class ROVER_17 {
         rovername = "ROVER_17";
         SERVER_ADDRESS = "localhost";
         sleepTime = 300;
-
+		com = new Communication(url, rovername, corp_secret);
     }
 
     public ROVER_17(String servername){
