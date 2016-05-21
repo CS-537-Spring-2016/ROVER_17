@@ -23,7 +23,8 @@ public class Communication {
     JSONParser parser;
     private String rovername;
     private String corp_secret;
-
+    
+    //Communication Setup
     public Communication(String url, String rovername, String corp_secret) {
         this.url = url;
         this.parser = new JSONParser();
@@ -105,7 +106,7 @@ public class Communication {
         return tiles;
     }
 
-    // for requesting global map
+    // Method for requesting global map
     public JSONArray getGlobalMap() {
 
         URL obj = null;
