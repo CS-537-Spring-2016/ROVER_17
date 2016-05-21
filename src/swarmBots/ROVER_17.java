@@ -35,10 +35,10 @@ public class ROVER_17 {
     String rovername;
     ScanMap scanMap;
     int sleepTime;
-    String SERVER_ADDRESS = "localhost";
+    String SERVER_ADDRESS = "192.168.1.106";
     static final int PORT_ADDRESS = 9537;
 	private int xCoord=0, yCoord=0, counter=0;
-	private String url = "http://23.251.155.186:3000/api";
+	private String url = "http://192.168.1.104:3000/api";
 	private String corp_secret = "0FSj7Pn23t";
 	private Communication com;
 	private ArrayList<String> moves = new ArrayList();
@@ -47,7 +47,7 @@ public class ROVER_17 {
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
         rovername = "ROVER_17";
-        SERVER_ADDRESS = "localhost";
+        SERVER_ADDRESS = "192.168.1.106";
         sleepTime = 300;
 		com = new Communication(url, rovername, corp_secret);
     }
