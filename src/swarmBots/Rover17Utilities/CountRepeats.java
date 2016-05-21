@@ -39,7 +39,7 @@ public class CountRepeats {
 		 * OR, @param realCounter >3*moveCounter, the rover is repeating the move in a smaller loop
 		 * and backwardCount does not reach to 20; Therefore, the path should be changed
 		 */
-		if (backwardCount >= REPEAT_LIMIT || realCounter > 3*moveCounter){
+		if (backwardCount > REPEAT_LIMIT || realCounter > 3*moveCounter){
 			resetVars();
 			repeating = true;
 		}
