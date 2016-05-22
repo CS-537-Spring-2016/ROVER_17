@@ -47,7 +47,7 @@ public class ROVER_17 {
     public ROVER_17(){
         System.out.println("ROVER_17 constructed.");
         rovername = "ROVER_17";
-        SERVER_ADDRESS = "192.168.1.106";
+        SERVER_ADDRESS = "localhost";
         sleepTime = 300;
 		com = new Communication(url, rovername, corp_secret);
     }
@@ -122,6 +122,8 @@ public class ROVER_17 {
 				MapTile[][] scanMapTiles = scanMap.getScanMap();
 				int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 
+				com.postScanMapTiles(currentLoc, scanMapTiles);
+
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
 
 				if (counter < 1){
@@ -194,8 +196,8 @@ public class ROVER_17 {
 				//System.out.println(rm.getGraph().edgesToString());
 				//print to see 2darray
 				//System.out.println(rm.arrayToString());
-
-				com.postScanMapTiles(currentLoc, scanMapTiles);
+				//print to see nodes of sciences
+				//System.out.println(rm.getGraph().sciencesToString());
 
 				Thread.sleep(sleepTime);
 

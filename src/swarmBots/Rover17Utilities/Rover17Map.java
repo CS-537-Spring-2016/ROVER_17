@@ -138,7 +138,7 @@ public class Rover17Map {
     public LinkedList<Edge> getTargetNE(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
-        //north wall
+        //north wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5-i, y-5));
             path = search(graph, current, temp);
@@ -147,7 +147,7 @@ public class Rover17Map {
                 return path;
             }
         }
-        //east wall
+        //east wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5, y-5+i));
             path = search(graph, current, temp);
@@ -180,7 +180,7 @@ public class Rover17Map {
     public LinkedList<Edge> getTargetSW(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
-        //south wall
+        //south wall first half
         for (int i=0; i<(sm.length/2)+1; i++) {
             Node temp = new Node(new Coordinates(x-5+i, y+5));
             path = search(graph, current, temp);
@@ -189,7 +189,7 @@ public class Rover17Map {
                 return path;
             }
         }
-        //west wall
+        //west wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5, y+5-i));
             path = search(graph, current, temp);
@@ -222,7 +222,7 @@ public class Rover17Map {
     public LinkedList<Edge> getTargetNW(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
-        //north wall
+        //north wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5+i, y-5));
             path = search(graph, current, temp);
@@ -231,7 +231,7 @@ public class Rover17Map {
                 return path;
             }
         }
-        //west wall
+        //west wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x-5, y-5+i));
             path = search(graph, current, temp);
@@ -264,7 +264,7 @@ public class Rover17Map {
     public LinkedList<Edge> getTargetSE(int x, int y, MapTile[][] sm){
         Node current = new Node(new Coordinates(x, y));
         LinkedList<Edge> path = new LinkedList();
-        //south wall
+        //south wall first half
         for (int i=0; i<(sm.length/2)+1; i++) {
             Node temp = new Node(new Coordinates(x+5-i, y+5));
             path = search(graph, current, temp);
@@ -273,7 +273,7 @@ public class Rover17Map {
                 return path;
             }
         }
-        //east wall
+        //east wall first half
         for (int i=0; i<(sm.length/2)+1; i++){
             Node temp = new Node(new Coordinates(x+5, y+5-i));
             path = search(graph, current, temp);
@@ -311,11 +311,11 @@ public class Rover17Map {
                 direction = "SE";
             else if((y-6-i>-1) && terrainMap[y-6-i][x+6+i] == 0 && terrainMap[y-5][x+5] != -1)
                 direction = "NE";
-            else if((x-6-i>-1) && terrainMap[y+6+i][x-6-i] == 0 && terrainMap[y+5][x-5] != -1)
-                direction = "SW";
             else if((x-6-i>-1) && (y-6-i>-1) && terrainMap[y-6-i][x-6-i] == 0 &&
                     terrainMap[y-5][x-5] != -1)
                 direction = "NW";
+            else if((x-6-i>-1) && terrainMap[y+6+i][x-6-i] == 0 && terrainMap[y+5][x-5] != -1)
+                direction = "SW";
             else
                 i++;
             }

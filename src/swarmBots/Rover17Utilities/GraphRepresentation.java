@@ -131,6 +131,14 @@ public class GraphRepresentation {
         return nodestring;
     }
 
+    public String sciencesToString(){
+        String nodestring = "";
+        for (Node n : sciences){
+            nodestring += n.toString() + ", ";
+        }
+        return nodestring;
+    }
+
     //see if edges are added correctly
     public String edgesToString(){
         String edgeString = "";
