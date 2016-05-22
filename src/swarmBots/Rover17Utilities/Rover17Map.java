@@ -141,14 +141,17 @@ public class Rover17Map {
         LinkedList<Edge> path = new LinkedList();
         int i=0;
         while (path == null || path.isEmpty()) {
+            //South east corner
             if (terrainMap[y+6+i][x+6+i] == 0 && terrainMap[y+5][x+5] != -1) {
                 for (int j = 0; j < (sm.length / 2)+1; j++) {
+                    //East wall
                     Node temp = new Node(new Coordinates(x + 5 - j, y + 5));
                     path = search(graph, current, temp);
                     if (path != null) {
                         System.out.println("Target :" + temp);
                         return path;
                     }
+                    //South wall
                     temp = new Node(new Coordinates(x + 5, y + 5 - j));
                     path = search(graph, current, temp);
                     if (path != null) {
@@ -157,14 +160,17 @@ public class Rover17Map {
                     }
                 }
             }
+            //North east corner
             if((y-6-i>-1) && terrainMap[y-6-i][x+6+i] == 0 && terrainMap[y-5][x+5] != -1) {
                 for (int j=0; j<(sm.length/2)+1; j++){
+                    //North wall
                     Node temp = new Node(new Coordinates(x+5-j, y-5));
                     path = search(graph, current, temp);
                     if (path != null) {
                         System.out.println("Target :" + temp);
                         return path;
                     }
+                    //East wall
                     temp = new Node(new Coordinates(x+5, y-5+j));
                     path = search(graph, current, temp);
                     if (path != null) {
@@ -173,15 +179,18 @@ public class Rover17Map {
                     }
                 }
             }
+            //North west corner
             if((x-6-i>-1) && (y-6-i>-1) && terrainMap[y-6-i][x-6-i] == 0 &&
                     terrainMap[y-5][x-5] != -1) {
                 for (int j=0; j<(sm.length/2)+1; j++){
+                    //North wall
                     Node temp = new Node(new Coordinates(x-5+j, y-5));
                     path = search(graph, current, temp);
                     if (path != null) {
                         System.out.println("Target :" + temp);
                         return path;
                     }
+                    //West wall
                     temp = new Node(new Coordinates(x-5, y-5+j));
                     path = search(graph, current, temp);
                     if (path != null) {
@@ -190,14 +199,17 @@ public class Rover17Map {
                     }
                 }
             }
+            //South west corner
             if((x-6-i>-1) && terrainMap[y+6+i][x-6-i] == 0 && terrainMap[y+5][x-5] != -1) {
                 for (int j=0; j<(sm.length/2)+1; j++) {
+                    //South wall
                     Node temp = new Node(new Coordinates(x-5+j, y+5));
                     path = search(graph, current, temp);
                     if (path != null) {
                         System.out.println("Target :" + temp);
                         return path;
                     }
+                    //West wall
                     temp = new Node(new Coordinates(x-5, y+5-j));
                     path = search(graph, current, temp);
                     if (path != null) {
