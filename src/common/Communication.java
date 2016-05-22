@@ -155,7 +155,10 @@ public class Communication {
             String inputLine;
             StringBuffer response = new StringBuffer();
      *      return inputLine;
-     * 
+     *       while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close()
      * }
      */
 
