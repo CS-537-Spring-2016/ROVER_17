@@ -134,192 +134,81 @@ public class Rover17Map {
         }
     }
 
-    //method to get the next path if direction is North East
-    public LinkedList<Edge> getTargetNE(int x, int y, MapTile[][] sm){
-        Node current = new Node(new Coordinates(x, y));
-        LinkedList<Edge> path = new LinkedList();
-        //north wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x+5-i, y-5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //east wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x+5, y-5+i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //west wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x-5, y-5+i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //south wall
-        for (int i=0; i<sm.length; i++) {
-            Node temp = new Node(new Coordinates(x+5-i, y+5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        return path;
-    }
-    //method to get the next path if direction is South West
-    public LinkedList<Edge> getTargetSW(int x, int y, MapTile[][] sm){
-        Node current = new Node(new Coordinates(x, y));
-        LinkedList<Edge> path = new LinkedList();
-        //south wall first half
-        for (int i=0; i<(sm.length/2)+1; i++) {
-            Node temp = new Node(new Coordinates(x-5+i, y+5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //west wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x-5, y+5-i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //east wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5, y+5-i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //north wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5-i, y-5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        return path;
-    }
-    //method to get the next path if direction is North West
-    public LinkedList<Edge> getTargetNW(int x, int y, MapTile[][] sm){
-        Node current = new Node(new Coordinates(x, y));
-        LinkedList<Edge> path = new LinkedList();
-        //north wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x-5+i, y-5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //west wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x-5, y-5+i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //east wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5, y-5+i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //south wall
-        for (int i=0; i<sm.length; i++) {
-            Node temp = new Node(new Coordinates(x+5-i, y+5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        return path;
-    }
-    //method to get the next path if direction is South East
-    public LinkedList<Edge> getTargetSE(int x, int y, MapTile[][] sm){
-        Node current = new Node(new Coordinates(x, y));
-        LinkedList<Edge> path = new LinkedList();
-        //south wall first half
-        for (int i=0; i<(sm.length/2)+1; i++) {
-            Node temp = new Node(new Coordinates(x+5-i, y+5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //east wall first half
-        for (int i=0; i<(sm.length/2)+1; i++){
-            Node temp = new Node(new Coordinates(x+5, y+5-i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //west wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x-5, y+5-i));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        //north wall
-        for (int i=0; i<sm.length; i++){
-            Node temp = new Node(new Coordinates(x+5-i, y-5));
-            path = search(graph, current, temp);
-            if (path != null) {
-                System.out.println("Target :" + temp);
-                return path;
-            }
-        }
-        return path;
-    }
 
-    public String directionOfUndiscovered(int x, int y){
-        String direction = "";
+
+    public LinkedList<Edge> getNextPath(int x, int y, MapTile[][] sm){
+        Node current = new Node(new Coordinates(x, y));
+        LinkedList<Edge> path = new LinkedList();
         int i=0;
-        while (direction.isEmpty()) {
-            if (terrainMap[y+6+i][x+6+i] == 0 && terrainMap[y+5][x+5] != -1)
-                direction = "SE";
-            else if((y-6-i>-1) && terrainMap[y-6-i][x+6+i] == 0 && terrainMap[y-5][x+5] != -1)
-                direction = "NE";
-            else if((x-6-i>-1) && (y-6-i>-1) && terrainMap[y-6-i][x-6-i] == 0 &&
-                    terrainMap[y-5][x-5] != -1)
-                direction = "NW";
-            else if((x-6-i>-1) && terrainMap[y+6+i][x-6-i] == 0 && terrainMap[y+5][x-5] != -1)
-                direction = "SW";
-            else
-                i++;
+        while (path == null || path.isEmpty()) {
+            if (terrainMap[y+6+i][x+6+i] == 0 && terrainMap[y+5][x+5] != -1) {
+                for (int j = 0; j < (sm.length / 2)+1; j++) {
+                    Node temp = new Node(new Coordinates(x + 5 - j, y + 5));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                    temp = new Node(new Coordinates(x + 5, y + 5 - j));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                }
             }
-        return direction;
+            if((y-6-i>-1) && terrainMap[y-6-i][x+6+i] == 0 && terrainMap[y-5][x+5] != -1) {
+                for (int j=0; j<(sm.length/2)+1; j++){
+                    Node temp = new Node(new Coordinates(x+5-j, y-5));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                    temp = new Node(new Coordinates(x+5, y-5+j));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                }
+            }
+            if((x-6-i>-1) && (y-6-i>-1) && terrainMap[y-6-i][x-6-i] == 0 &&
+                    terrainMap[y-5][x-5] != -1) {
+                for (int j=0; j<(sm.length/2)+1; j++){
+                    Node temp = new Node(new Coordinates(x-5+j, y-5));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                    temp = new Node(new Coordinates(x-5, y-5+j));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                }
+            }
+            if((x-6-i>-1) && terrainMap[y+6+i][x-6-i] == 0 && terrainMap[y+5][x-5] != -1) {
+                for (int j=0; j<(sm.length/2)+1; j++) {
+                    Node temp = new Node(new Coordinates(x-5+j, y+5));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                    temp = new Node(new Coordinates(x-5, y+5-j));
+                    path = search(graph, current, temp);
+                    if (path != null) {
+                        System.out.println("Target :" + temp);
+                        return path;
+                    }
+                }
+            }
+            i++;
+        }
+        return path;
     }
 
     @Override

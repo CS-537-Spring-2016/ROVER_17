@@ -122,28 +122,13 @@ public class ROVER_17 {
 				MapTile[][] scanMapTiles = scanMap.getScanMap();
 				int centerIndex = (scanMap.getEdgeSize() - 1) / 2;
 
-				com.postScanMapTiles(currentLoc, scanMapTiles);
+				//com.postScanMapTiles(currentLoc, scanMapTiles);
 
 				rm.updateMap(xCoord, yCoord, scanMapTiles);
 
 				if (counter < 1){
-					direction = rm.directionOfUndiscovered(xCoord, yCoord);
-					System.out.println("Direction will be: " + direction);
-					LinkedList<Edge> path = new LinkedList();
-					switch (direction){
-						case "NE":
-							path = rm.getTargetNE(xCoord, yCoord, scanMapTiles);
-							break;
-						case "NW":
-							path = rm.getTargetNW(xCoord, yCoord, scanMapTiles);
-							break;
-						case "SW":
-							path = rm.getTargetSW(xCoord, yCoord, scanMapTiles);
-							break;
-						case "SE":
-							path = rm.getTargetSE(xCoord, yCoord, scanMapTiles);
-							break;
-					}
+					LinkedList<Edge> path = rm.getNextPath(xCoord, yCoord, scanMapTiles);
+
 					moves = rm.getMoves(path);
 					counter = moves.size();
 					System.out.println(moves);
