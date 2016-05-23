@@ -146,19 +146,7 @@ public class Communication {
     
      /*public String getResponse(){
      * 
-     * 		int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-     *      return inputLine;
-     *       while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close()
+     * 	
      * }
      */
 
