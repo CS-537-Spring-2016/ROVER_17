@@ -2,6 +2,7 @@ CS-537 Swarm Rover Project
 
 Green Corp.
 
+
 Members:
 1. Steve Shim - steveshim
 2. Rafik Keshishians - rkeshishians
@@ -11,6 +12,7 @@ Members:
 
 .gitignore text
 # Ignore everything
+*
 *
 
 # But not these files...
