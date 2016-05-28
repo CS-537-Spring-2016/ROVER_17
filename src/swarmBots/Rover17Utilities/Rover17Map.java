@@ -59,11 +59,6 @@ public class Rover17Map {
                 curX = x-5+i;
                 curY = y-5+j;
 
-                if (curX < 0 || curY < 0){
-                    //no need to create nodes at negative spots
-                    continue;
-                }
-                
                 //Create Node with coordinates
                 Node tempNode = new Node(new Coordinates(curX, curY));
 
@@ -73,6 +68,10 @@ public class Rover17Map {
                     graph.addSciences(tempNode);
                 }
 
+                if (curX < 0 || curY < 0){
+                    //no need to create nodes at negative spots
+                    continue;
+                }
                 //checks if tile is blocked, does not create edges
                 else if (scanMapTiles[i][j].getTerrain() == Terrain.NONE ||
                         scanMapTiles[i][j].getTerrain() == Terrain.ROCK ||
